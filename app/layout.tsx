@@ -5,6 +5,7 @@ import "./globals.css";
 
 // providers
 import ModalProvider from "@/providers/modal-provider";
+import ToastProvider from "@/providers/toast-provider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${poppins.className} antialiased`}>
           <ModalProvider />
+          <ToastProvider />
           {children}
         </body>
       </html>
