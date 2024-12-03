@@ -1,4 +1,6 @@
+import { PopoverTrigger } from "@/components/ui/popover";
 import React from "react";
+import { IStorePlainText } from "../interfaces/store.interface";
 
 export type GenericLayoutProps = {
   children: React.ReactNode;
@@ -19,4 +21,12 @@ export type DashboardLayoutProps = {
 
 export type DashboardOverviewProps = {
   params: { storeId: string };
+};
+
+export type PopoverTriggerProps = React.ComponentPropsWithoutRef<
+  typeof PopoverTrigger
+>;
+
+export type StoreSwitcherProps = PopoverTriggerProps & {
+  items: IStorePlainText[];
 };
