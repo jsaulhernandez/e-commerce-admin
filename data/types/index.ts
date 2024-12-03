@@ -11,3 +11,12 @@ export type ModalProps = {
   onClose: () => void;
   children?: React.ReactNode;
 };
+
+export type DashboardLayoutProps = {
+  children: React.ReactNode;
+  params: { storeId: string };
+};
+
+export type DashboardOverviewProps = {
+  params: { storeId: string };
+};
