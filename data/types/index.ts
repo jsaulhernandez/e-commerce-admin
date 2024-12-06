@@ -1,6 +1,7 @@
 import { PopoverTrigger } from "@/components/ui/popover";
 import React from "react";
 import { IStorePlainText } from "../interfaces/store.interface";
+import { IOption } from "../interfaces/option.interface";
 
 export type GenericLayoutProps = {
   children: React.ReactNode;
@@ -29,4 +30,10 @@ export type PopoverTriggerProps = React.ComponentPropsWithoutRef<
 
 export type StoreSwitcherProps = PopoverTriggerProps & {
   items: IStorePlainText[];
+};
+
+export type StoreListItemProps = {
+  store: IOption;
+  onSelect: (payload: IOption) => void;
+  isChecked: boolean;
 };
