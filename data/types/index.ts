@@ -69,3 +69,11 @@ export type ApiAlertProps = {
   description: string;
   variant: "public" | "admin";
 };
+
+export type BillBoardsPageProps = {
+  params: { storeId: string };
+};
+
+export type BillBoardPageProps = {
+  params: { storeId: string; billboardId: string };
+};
