@@ -37,3 +37,7 @@ export type StoreListItemProps = {
   onSelect: (payload: IOption) => void;
   isChecked: boolean;
 };
+
+export type CreateNewStoreItemProps = {
+  onClick: () => void;
+};

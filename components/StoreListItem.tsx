@@ -13,7 +13,10 @@ const StoreListItem = ({
 }: StoreListItemProps) => {
   return (
     <div
-      className="flex items-center px-2 cursor-pointer hover:bg-gray-50 text-muted-foreground hover:text-primary"
+      className={cn(
+        "flex items-center px-2 cursor-pointer hover:bg-gray-50 text-muted-foreground hover:text-primary py-2",
+        isChecked ? "pointer-events-none" : ""
+      )}
       onClick={() => onSelect(store)}
     >
       <StoreIcon className="mr-2 h-4 w-4" />
