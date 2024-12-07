@@ -39,7 +39,7 @@ const StoreSwitcher = ({ items }: StoreSwitcherProps) => {
 
   const onStoreSelect = (store: IOption) => {
     setIsOpen(false);
-    router.push(`${store.value}`);
+    router.push(`/${store.value}`);
   };
 
   const handleSearchTerm = (e: ChangeEvent<HTMLInputElement>) => {
