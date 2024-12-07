@@ -56,3 +56,16 @@ export type HeadingProps = {
   title: string;
   description: string;
 };
+
+export type AlertModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  loading: boolean;
+};
+
+export type ApiAlertProps = {
+  title: string;
+  description: string;
+  variant: "public" | "admin";
+};

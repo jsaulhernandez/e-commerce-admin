@@ -6,6 +6,8 @@ import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
+import axios from "axios";
+import toast from "react-hot-toast";
 // components
 import Heading from "@/components/Heading";
 import { Button } from "@/components/ui/button";
@@ -19,10 +21,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import AlertModal from "@/components/modal/alert-modal";
+import ApiAlert from "@/components/ApiAlert";
+// hooks
+import { useOrigin } from "@/hooks/useOrigin";
 // types
 import { SettingsFormProps } from "@/data/types";
-import axios from "axios";
-import toast from "react-hot-toast";
 
 const formSchema = z.object({
   name: z
@@ -31,13 +35,16 @@ const formSchema = z.object({
 });
 
 const SettingsForm = ({ initialData }: SettingsFormProps) => {
+  const { storeId } = useParams<{ storeId: string }>();
+  const router = useRouter();
+  const origin = useOrigin();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { storeId } = useParams<{ storeId: string }>();
-  const router = useRouter();
+  const [open, setOpen] = useState<boolean>(false);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
@@ -53,13 +60,37 @@ const SettingsForm = ({ initialData }: SettingsFormProps) => {
     }
   };
 
-  const onHandleClick = () => {};
+  const onDelete = async () => {
+    setIsLoading(true);
+    try {
+      await axios.delete(`/api/stores/${storeId}`);
+      toast.success("Store Deleted");
+      router.refresh();
+      router.push("/");
+    } catch (error) {
+      console.error("[Error]", error);
+      toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
+      setOpen(false);
+    }
+  };
 
   return (
     <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={onDelete}
+        loading={isLoading}
+      />
       <div className="flex items-center justify-center">
         <Heading title="Settings" description="Manage Store Preferences" />
-        <Button variant={"destructive"} size={"icon"} onClick={onHandleClick}>
+        <Button
+          variant={"destructive"}
+          size={"icon"}
+          onClick={() => setOpen(true)}
+        >
           <Trash className="w-4 h-4" />
         </Button>
       </div>
@@ -95,6 +126,13 @@ const SettingsForm = ({ initialData }: SettingsFormProps) => {
           </Button>
         </form>
       </Form>
+
+      <Separator />
+      <ApiAlert
+        title="NEXT_PUBLIC_URL"
+        description={`${origin}/api/${storeId}`}
+        variant="public"
+      />
     </>
   );
 };
