@@ -4,10 +4,19 @@ import { useParams, useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 import { ChevronsUpDown, StoreIcon } from "lucide-react";
 // components
-import { Command, CommandEmpty, CommandGroup, CommandList } from "./ui/command";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandList,
+  CommandSeparator,
+} from "./ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
 import StoreListItem from "./StoreListItem";
+import CreateNewStoreItem from "./CreateNewStoreItem";
+// hooks
+import { useStoreModal } from "@/hooks/useStoreModal";
 // interfaces
 import { IOption } from "@/data/interfaces/option.interface";
 // types
@@ -19,6 +28,7 @@ const StoreSwitcher = ({ items }: StoreSwitcherProps) => {
   const [filtered, setFiltered] = useState<IOption[]>([]);
   const { storeId } = useParams<{ storeId: string }>();
   const router = useRouter();
+  const storeModal = useStoreModal();
 
   const formattedStores: IOption[] = items.map((i) => ({
     label: i.name,
@@ -69,7 +79,6 @@ const StoreSwitcher = ({ items }: StoreSwitcherProps) => {
             />
           </div>
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
             <CommandGroup heading="Stores">
               {searchTerm === "" ? (
                 formattedStores.map((s, index) => (
@@ -92,6 +101,17 @@ const StoreSwitcher = ({ items }: StoreSwitcherProps) => {
               ) : (
                 <CommandEmpty>No Store Found</CommandEmpty>
               )}
+            </CommandGroup>
+          </CommandList>
+          <CommandSeparator />
+          <CommandList>
+            <CommandGroup>
+              <CreateNewStoreItem
+                onClick={() => {
+                  setIsOpen(false);
+                  storeModal.onOpen();
+                }}
+              />
             </CommandGroup>
           </CommandList>
         </Command>
