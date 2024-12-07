@@ -41,3 +41,18 @@ export type StoreListItemProps = {
 export type CreateNewStoreItemProps = {
   onClick: () => void;
 };
+
+export type SettingsPageProps = {
+  params: {
+    storeId: string;
+  };
+};
+
+export type SettingsFormProps = {
+  initialData: IStorePlainText;
+};
+
+export type HeadingProps = {
+  title: string;
+  description: string;
+};
