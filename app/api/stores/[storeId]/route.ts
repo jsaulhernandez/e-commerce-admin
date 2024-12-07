@@ -39,12 +39,14 @@ export const DELETE = async (
 ) => {
   try {
     const { userId } = await auth();
+    const { storeId } = await params;
+
     if (!userId) throw new NextResponse("Un-Authorized", { status: 404 });
 
-    if (!params.storeId)
+    if (!storeId)
       throw new NextResponse("Store ID is required", { status: 400 });
 
-    const docRef = doc(db, "stores", params.storeId);
+    const docRef = doc(db, "stores", storeId);
     // TODO: delete all sub-collections and long with those data file urls
     await deleteDoc(docRef);
 
