@@ -51,6 +51,11 @@ const StoreModal = () => {
     }
   };
 
+  const handleOnClose = () => {
+    form.reset();
+    onClose();
+  };
+
   return (
     <CustomModal
       title="Create a new store"
@@ -86,6 +91,7 @@ const StoreModal = () => {
                   type="button"
                   variant={"outline"}
                   size={"sm"}
+                  onClick={handleOnClose}
                 >
                   Cancel
                 </Button>
