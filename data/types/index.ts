@@ -2,6 +2,7 @@ import { PopoverTrigger } from "@/components/ui/popover";
 import React from "react";
 import { IStorePlainText } from "../interfaces/store.interface";
 import { IOption } from "../interfaces/option.interface";
+import { IBillboard } from "../interfaces/billboard.interface";
 
 export type GenericLayoutProps = {
   children: React.ReactNode;
@@ -76,4 +77,15 @@ export type BillBoardsPageProps = {
 
 export type BillBoardPageProps = {
   params: { storeId: string; billboardId: string };
+};
+
+export type BillboardFormProps = {
+  initialData?: IBillboard;
+};
+
+export type ImageUploadProps = {
+  disabled?: boolean;
+  onChange: (value: string) => void;
+  onRemove: (value: string) => void;
+  value: string[];
 };
