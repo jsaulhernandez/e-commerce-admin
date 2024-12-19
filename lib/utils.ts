@@ -8,8 +8,13 @@ import {
   doc,
   DocumentData,
   DocumentReference,
+  getDocs,
+  query,
   QueryDocumentSnapshot,
+  QuerySnapshot,
+  where,
 } from "firebase/firestore";
+import { ICondition } from "@/data/interfaces/condition.interface";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -43,12 +48,46 @@ export const dataPointDocument = <T extends DocumentData>(
   documentPath: string,
   ...pathSegments: string[]
 ) => {
-  const fullPath = pathSegments
-    ? [documentPath, ...pathSegments].join("/")
-    : documentPath;
+  const fullPath = [documentPath, ...pathSegments].join("/");
   const docRef = doc(db, fullPath) as DocumentReference<T>;
 
   return docRef.withConverter(converter<T>());
+};
+
+export const dataPointCollectionWithReference = <T extends DocumentData>(
+  reference: DocumentReference,
+  collectionPath: string,
+  ...pathSegments: string[]
+) => {
+  const collectionFullPath = [collectionPath, ...pathSegments].join("/");
+
+  const collectionRef = collection(
+    reference,
+    collectionFullPath
+  ) as CollectionReference<T>;
+
+  return collectionRef.withConverter(converter<T>());
+};
+
+/**
+ *
+ * @param collectionReference reference to get data from firebase
+ * @param conditions conditions to get data from T object
+ * @returns a  QuerySnapshot<T, DocumentData>
+ */
+export const getCollectionWithCondition = async <T>(
+  collectionReference: CollectionReference<T>,
+  ...conditions: ICondition<T>[]
+): Promise<QuerySnapshot<T, DocumentData>> => {
+  const queryConstraints = conditions.map((c) =>
+    where(c.key as string, c.opStr, c.value)
+  );
+
+  const snapshot = await getDocs(
+    query(collectionReference, ...queryConstraints)
+  );
+
+  return snapshot;
 };
 
 // Helper function to extract public ID from the Cloudinary URL
