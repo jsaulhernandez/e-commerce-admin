@@ -1,7 +1,7 @@
 import { IStore } from "@/data/interfaces/store.interface";
-import { db } from "@/lib/firebase";
+import { documentReference, getDataFirebase } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
-import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import { deleteDoc, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
 
 export const PATCH = async (
@@ -22,9 +22,9 @@ export const PATCH = async (
     if (!name)
       throw new NextResponse("Store name is missing!", { status: 400 });
 
-    const docRef = doc(db, "stores", storeId);
+    const docRef = documentReference<IStore>("stores", storeId);
     await updateDoc(docRef, { name });
-    const store = (await getDoc(docRef)).data() as IStore;
+    const store = (await getDataFirebase(docRef)).data() as IStore;
 
     return NextResponse.json(store);
   } catch (error) {
@@ -46,7 +46,7 @@ export const DELETE = async (
     if (!storeId)
       throw new NextResponse("Store ID is required", { status: 400 });
 
-    const docRef = doc(db, "stores", storeId);
+    const docRef = documentReference<IStore>("stores", storeId);
     // TODO: delete all sub-collections and long with those data file urls
     await deleteDoc(docRef);
 
