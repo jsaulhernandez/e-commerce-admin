@@ -1,10 +1,12 @@
 "use client";
 
-import { IRoute } from "@/data/interfaces/route.interface";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import React from "react";
+// interfaces
+import { IRoute } from "@/data/interfaces/route.interface";
+// utils
+import { cn } from "@/lib/utils";
 
 const MainNav = ({
   className,
@@ -14,6 +16,16 @@ const MainNav = ({
   const params = useParams();
 
   const routes: IRoute[] = [
+    {
+      href: `/${params.storeId}`,
+      label: "Overview",
+      active: pathname === `/${params.storeId}`,
+    },
+    {
+      href: `/${params.storeId}/billboards`,
+      label: "Billboards",
+      active: pathname === `/${params.storeId}/billboards`,
+    },
     {
       href: `/${params.storeId}/settings`,
       label: "Settings",
