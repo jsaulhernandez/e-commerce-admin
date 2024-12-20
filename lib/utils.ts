@@ -1,7 +1,5 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-
-import { db } from "./firebase";
 import {
   collection,
   CollectionReference,
@@ -16,7 +14,10 @@ import {
   QuerySnapshot,
   where,
 } from "firebase/firestore";
+
+import { db } from "./firebase";
 import { ICondition } from "@/data/interfaces/condition.interface";
+import { pathFirebase } from "@/data/constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -36,21 +37,18 @@ export function converter<T extends DocumentData>() {
 }
 
 export const collectionReference = <T extends DocumentData>(
-  collectionPath: string
+  path: pathFirebase
 ): CollectionReference<T, DocumentData> => {
-  const collectionRef = collection(
-    db,
-    collectionPath
-  ) as CollectionReference<T>;
+  const collectionRef = collection(db, path) as CollectionReference<T>;
 
   return collectionRef.withConverter(converter<T>());
 };
 
 export const documentReference = <T extends DocumentData>(
-  documentPath: string,
+  path: pathFirebase,
   ...pathSegments: string[]
 ): DocumentReference<T, DocumentData> => {
-  const fullPath = [documentPath, ...pathSegments].join("/");
+  const fullPath = [path, ...pathSegments].join("/");
   const docRef = doc(db, fullPath) as DocumentReference<T>;
 
   return docRef.withConverter(converter<T>());
@@ -58,10 +56,10 @@ export const documentReference = <T extends DocumentData>(
 
 export const collectionReferenceByDoc = <T extends DocumentData>(
   reference: DocumentReference,
-  collectionPath: string,
+  path: pathFirebase,
   ...pathSegments: string[]
 ): CollectionReference<T, DocumentData> => {
-  const collectionFullPath = [collectionPath, ...pathSegments].join("/");
+  const collectionFullPath = [path, ...pathSegments].join("/");
 
   const collectionRef = collection(
     reference,
