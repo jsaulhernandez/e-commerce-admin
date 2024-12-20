@@ -5,7 +5,7 @@ import { IBillboard } from "@/data/interfaces/billboard.interface";
 // types
 import { BillBoardPageProps } from "@/data/types";
 // utils
-import { documentReference, getDataFirebase } from "@/lib/utils";
+import { documentReference, getDataFirebase } from "@/lib/firebase-functions";
 
 const BillBoardPage = async ({ params }: BillBoardPageProps) => {
   const { storeId, billboardId } = await params;

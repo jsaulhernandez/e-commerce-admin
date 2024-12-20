@@ -1,5 +1,5 @@
 import { IStore } from "@/data/interfaces/store.interface";
-import { documentReference, getDataFirebase } from "@/lib/utils";
+import { documentReference, getDataFirebase } from "@/lib/firebase-functions";
 import { auth } from "@clerk/nextjs/server";
 import { deleteDoc, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";

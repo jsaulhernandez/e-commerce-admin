@@ -7,7 +7,10 @@ import StoreSwitcher from "./StoreSwitcher";
 //interfaces
 import { IStore, IStorePlainText } from "@/data/interfaces/store.interface";
 // utils
-import { collectionReference, getCollectionByQueryFirebase } from "@/lib/utils";
+import {
+  collectionReference,
+  getCollectionByQueryFirebase,
+} from "@/lib/firebase-functions";
 
 const Navbar = async () => {
   const { userId } = await auth();

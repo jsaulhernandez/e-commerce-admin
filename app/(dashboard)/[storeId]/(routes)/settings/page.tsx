@@ -7,7 +7,7 @@ import { IStore } from "@/data/interfaces/store.interface";
 // types
 import { SettingsPageProps } from "@/data/types";
 // utils
-import { documentReference, getDataFirebase } from "@/lib/utils";
+import { documentReference, getDataFirebase } from "@/lib/firebase-functions";
 
 const SettingsPage = async ({ params }: SettingsPageProps) => {
   const { storeId } = await params;

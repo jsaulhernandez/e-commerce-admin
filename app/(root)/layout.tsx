@@ -5,7 +5,10 @@ import { IStore } from "@/data/interfaces/store.interface";
 // types
 import { GenericLayoutProps } from "@/data/types";
 // utils
-import { collectionReference, getCollectionByQueryFirebase } from "@/lib/utils";
+import {
+  collectionReference,
+  getCollectionByQueryFirebase,
+} from "@/lib/firebase-functions";
 
 const SetupLayout = async ({ children }: GenericLayoutProps) => {
   const { userId } = await auth();

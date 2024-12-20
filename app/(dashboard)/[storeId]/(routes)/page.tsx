@@ -3,7 +3,7 @@ import { IStore } from "@/data/interfaces/store.interface";
 // types
 import { DashboardOverviewProps } from "@/data/types";
 // utils
-import { documentReference, getDataFirebase } from "@/lib/utils";
+import { documentReference, getDataFirebase } from "@/lib/firebase-functions";
 
 const DashboardOverview = async ({ params }: DashboardOverviewProps) => {
   const { storeId } = await params;

@@ -6,7 +6,7 @@ import {
   documentReference,
   getCollectionFirebase,
   getDataFirebase,
-} from "@/lib/utils";
+} from "@/lib/firebase-functions";
 import { auth } from "@clerk/nextjs/server";
 import {
   addDoc,

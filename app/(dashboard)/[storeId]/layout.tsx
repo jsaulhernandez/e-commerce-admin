@@ -7,7 +7,11 @@ import { IStore } from "@/data/interfaces/store.interface";
 // types
 import { DashboardLayoutProps } from "@/data/types";
 // utils
-import { collectionReference, getCollectionByQueryFirebase } from "@/lib/utils";
+import {
+  collectionReference,
+  getCollectionByQueryFirebase,
+} from "@/lib/firebase-functions";
+
 const DashboardLayout = async ({ params, children }: DashboardLayoutProps) => {
   const { storeId } = await params;
   const { userId } = await auth();
