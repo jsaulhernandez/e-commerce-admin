@@ -8,6 +8,8 @@ import {
   doc,
   DocumentData,
   DocumentReference,
+  DocumentSnapshot,
+  getDoc,
   getDocs,
   query,
   QueryDocumentSnapshot,
@@ -33,9 +35,9 @@ export function converter<T extends DocumentData>() {
   };
 }
 
-export const dataPointCollection = <T extends DocumentData>(
+export const collectionReference = <T extends DocumentData>(
   collectionPath: string
-) => {
+): CollectionReference<T, DocumentData> => {
   const collectionRef = collection(
     db,
     collectionPath
@@ -44,21 +46,21 @@ export const dataPointCollection = <T extends DocumentData>(
   return collectionRef.withConverter(converter<T>());
 };
 
-export const dataPointDocument = <T extends DocumentData>(
+export const documentReference = <T extends DocumentData>(
   documentPath: string,
   ...pathSegments: string[]
-) => {
+): DocumentReference<T, DocumentData> => {
   const fullPath = [documentPath, ...pathSegments].join("/");
   const docRef = doc(db, fullPath) as DocumentReference<T>;
 
   return docRef.withConverter(converter<T>());
 };
 
-export const dataPointCollectionWithReference = <T extends DocumentData>(
+export const collectionReferenceByDoc = <T extends DocumentData>(
   reference: DocumentReference,
   collectionPath: string,
   ...pathSegments: string[]
-) => {
+): CollectionReference<T, DocumentData> => {
   const collectionFullPath = [collectionPath, ...pathSegments].join("/");
 
   const collectionRef = collection(
@@ -75,7 +77,7 @@ export const dataPointCollectionWithReference = <T extends DocumentData>(
  * @param conditions conditions to get data from T object
  * @returns a  QuerySnapshot<T, DocumentData>
  */
-export const getCollectionWithCondition = async <T>(
+export const getCollectionByQueryFirebase = async <T>(
   collectionReference: CollectionReference<T>,
   ...conditions: ICondition<T>[]
 ): Promise<QuerySnapshot<T, DocumentData>> => {
@@ -86,6 +88,27 @@ export const getCollectionWithCondition = async <T>(
   const snapshot = await getDocs(
     query(collectionReference, ...queryConstraints)
   );
+
+  return snapshot;
+};
+
+/**
+ *
+ * @param collectionReference reference to get data from firebase
+ * @returns a Promise<QuerySnapshot<T, DocumentData>>
+ */
+export const getCollectionFirebase = async <T>(
+  collectionReference: CollectionReference<T>
+): Promise<QuerySnapshot<T, DocumentData>> => {
+  const snapshot = await getDocs(collectionReference);
+
+  return snapshot;
+};
+
+export const getDataFirebase = async <T>(
+  reference: DocumentReference<T>
+): Promise<DocumentSnapshot<T, DocumentData>> => {
+  const snapshot = await getDoc(reference);
 
   return snapshot;
 };
