@@ -40,7 +40,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData,
+    defaultValues: initialData || { label: "", imageUrl: "" },
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
@@ -48,7 +48,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
   const title = initialData ? "Edit Billboard" : "Create Billboard";
   const description = initialData ? "Edit a billboard" : "Add a new billboard";
   const action = initialData ? "Save Changes" : "Create Billboard";
-  const toastMessage = initialData ? "Billboard Created" : "Billboard Updated";
+  const toastMessage = initialData ? "Billboard Updated" : "Billboard Created";
   // 5:19:08
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);

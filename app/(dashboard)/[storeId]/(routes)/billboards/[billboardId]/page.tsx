@@ -1,7 +1,11 @@
+import { format } from "date-fns/format";
 // components
 import BillboardForm from "./_components/billboard-form";
 // interfaces
-import { IBillboard } from "@/data/interfaces/billboard.interface";
+import {
+  IBillboard,
+  IBillboardPlainText,
+} from "@/data/interfaces/billboard.interface";
 // types
 import { BillBoardPageProps } from "@/data/types";
 // utils
@@ -16,10 +20,24 @@ const BillBoardPage = async ({ params }: BillBoardPageProps) => {
     )
   ).data();
 
+  let initialData: IBillboardPlainText | undefined = undefined;
+
+  if (billboard) {
+    initialData = {
+      ...billboard!,
+      createdAt: billboard!.createdAt
+        ? format(billboard!.createdAt.toDate(), "MMMM do, yyyy")
+        : "",
+      updatedAt: billboard!.updatedAt
+        ? format(billboard!.updatedAt.toDate(), "MMMM do, yyyy")
+        : "",
+    };
+  }
+
   return (
     <div className="flex flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BillboardForm initialData={billboard} />
+        <BillboardForm initialData={initialData} />
       </div>
     </div>
   );
