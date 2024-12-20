@@ -32,3 +32,22 @@ export const extractPublicIdFromUrl = (url: string) => {
 
   return sanitizedPublicId;
 };
+
+export type Mapper<TSource, TTarget> = (source: TSource) => TTarget;
+
+export function map<TSource, TTarget>(
+  source: TSource,
+  mapping: (keyof TSource)[]
+): TTarget {
+  const result: Partial<TTarget> = {};
+
+  mapping.forEach((key) => {
+    const sourceValue = source[key];
+    if (sourceValue !== undefined) {
+      result[key as unknown as keyof TTarget] =
+        sourceValue as TTarget[keyof TTarget];
+    }
+  });
+
+  return result as TTarget;
+}
