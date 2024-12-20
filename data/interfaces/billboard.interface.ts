@@ -1,6 +1,6 @@
 import { Timestamp } from "firebase/firestore";
 
-export interface IBillboards {
+export interface IBillboard {
   id: string;
   label: string;
   imageUrl: string;
@@ -8,7 +8,7 @@ export interface IBillboards {
   updatedAt: Timestamp;
 }
 
-export interface IBillboardsPlainText {
+export interface IBillboardPlainText {
   id: string;
   label: string;
   imageUrl: string;
