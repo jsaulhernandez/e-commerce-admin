@@ -1,6 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { getDoc } from "firebase/firestore";
 // components
 import SettingsForm from "./components/settings-form";
 // interfaces
@@ -8,7 +7,7 @@ import { IStore } from "@/data/interfaces/store.interface";
 // types
 import { SettingsPageProps } from "@/data/types";
 // utils
-import { dataPointDocument } from "@/lib/utils";
+import { documentReference, getDataFirebase } from "@/lib/utils";
 
 const SettingsPage = async ({ params }: SettingsPageProps) => {
   const { storeId } = await params;
@@ -17,7 +16,7 @@ const SettingsPage = async ({ params }: SettingsPageProps) => {
   if (!userId) redirect("/sign-in");
 
   const store = (
-    await getDoc(dataPointDocument<IStore>("stores", storeId))
+    await getDataFirebase<IStore>(documentReference("stores", storeId))
   ).data();
 
   if (!store) redirect("/");

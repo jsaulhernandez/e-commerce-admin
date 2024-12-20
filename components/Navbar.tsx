@@ -1,23 +1,24 @@
 import { UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { getDocs, query, where } from "firebase/firestore";
 // components
 import MainNav from "./MainNav";
 import StoreSwitcher from "./StoreSwitcher";
 //interfaces
 import { IStore, IStorePlainText } from "@/data/interfaces/store.interface";
 // utils
-import { dataPointCollection } from "@/lib/utils";
+import { collectionReference, getCollectionByQueryFirebase } from "@/lib/utils";
 
 const Navbar = async () => {
   const { userId } = await auth();
 
   if (!userId) redirect("/sign-in");
 
-  const storesSnap = await getDocs(
-    query(dataPointCollection<IStore>("stores"), where("userId", "==", userId))
+  const storesSnap = await getCollectionByQueryFirebase<IStore>(
+    collectionReference("stores"),
+    { key: "userId", opStr: "==", value: userId }
   );
+
   const stores: IStorePlainText[] =
     storesSnap.docs.map((d) => ({
       ...d.data(),
