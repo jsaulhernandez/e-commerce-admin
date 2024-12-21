@@ -5,10 +5,12 @@ import { useParams, useRouter } from "next/navigation";
 // components
 import Heading from "@/components/Heading";
 import { Button } from "@/components/ui/button";
-import { IBillboardPlainText } from "@/data/interfaces/billboard.interface";
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/data-table";
+// columns
 import { columnsBillboard } from "../[billboardId]/_components/columns";
+// interfaces
+import { IBillboardPlainText } from "@/data/interfaces/billboard.interface";
 
 const BillBoardClient = ({ data }: { data: IBillboardPlainText[] }) => {
   const params = useParams<{ storeId: string }>();
@@ -18,7 +20,7 @@ const BillBoardClient = ({ data }: { data: IBillboardPlainText[] }) => {
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Billboards (0)`}
+          title={`Billboards (${data.length})`}
           description="Manage billboards for you store"
         />
 

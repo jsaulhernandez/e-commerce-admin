@@ -1,10 +1,12 @@
+"use client";
+
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "./ui/dialog";
+} from "@/components/ui/dialog";
 
 import { ModalProps } from "@/data/types";
 
@@ -16,7 +18,9 @@ const CustomModal = ({
   children,
 }: ModalProps) => {
   const onChange = (open: boolean) => {
-    if (!open) onClose();
+    if (!open) {
+      onClose();
+    }
   };
 
   return (
@@ -26,7 +30,7 @@ const CustomModal = ({
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <div className="">{children}</div>
+        <div>{children}</div>
       </DialogContent>
     </Dialog>
   );

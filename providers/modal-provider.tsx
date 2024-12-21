@@ -7,8 +7,7 @@ const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(!isMounted);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setIsMounted(true);
   }, []);
 
   if (!isMounted) return null;

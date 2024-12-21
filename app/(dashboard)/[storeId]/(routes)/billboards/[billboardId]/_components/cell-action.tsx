@@ -1,5 +1,11 @@
 "use client";
 
+import axios from "axios";
+import { Copy, Edit, MoreVertical, Trash } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
+// components
 import AlertModal from "@/components/modal/alert-modal";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,17 +16,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+// interfaces
 import { IBillboardPlainText } from "@/data/interfaces/billboard.interface";
-import axios from "axios";
-import { Copy, Edit, MoreVertical, Trash } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
-import toast from "react-hot-toast";
 
 const CellAction = ({ data }: { data: IBillboardPlainText }) => {
   const { storeId } = useParams<{ storeId: string }>();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [loading, setLoading] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
 
   const onCopy = (id: string) => {
@@ -29,8 +32,8 @@ const CellAction = ({ data }: { data: IBillboardPlainText }) => {
   };
 
   const onDelete = async () => {
-    setIsLoading(true);
     try {
+      setLoading(true);
       const { imageUrl } = data;
       await axios
         .delete("/api/cloudinary", {
@@ -41,13 +44,13 @@ const CellAction = ({ data }: { data: IBillboardPlainText }) => {
         });
 
       toast.success("Billboard Removed");
-      location.reload();
+      router.refresh();
       router.push(`/${storeId}/billboards`);
     } catch (error) {
       console.error("[Error]", error);
       toast.error("Something went wrong");
     } finally {
-      setIsLoading(false);
+      setLoading(false);
       setOpen(false);
     }
   };
@@ -58,12 +61,12 @@ const CellAction = ({ data }: { data: IBillboardPlainText }) => {
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={onDelete}
-        loading={isLoading}
+        loading={loading}
       />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button className="h8 w-8 p-0" variant={"ghost"}>
-            <span className="sr-only">Open</span>
+            <span className="sr-only">Open menu</span>
             <MoreVertical className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>

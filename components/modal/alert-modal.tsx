@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 // components
-import CustomModal from "../CustomModal";
-import { Button } from "../ui/button";
+import CustomModal from "@/components/CustomModal";
+import { Button } from "@/components/ui/button";
 // types
 import { AlertModalProps } from "@/data/types";
 
@@ -19,7 +19,9 @@ const AlertModal = ({
     setIsMounted(true);
   }, []);
 
-  if (!isMounted) return null;
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <CustomModal
