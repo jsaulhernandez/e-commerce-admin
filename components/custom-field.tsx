@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FieldValues, Path, UseFormReturn } from "react-hook-form";
+import { Control, FieldValues, Path } from "react-hook-form";
 // components
 import {
   FormControl,
@@ -13,15 +13,15 @@ import {
 import { Input } from "@/components/ui/input";
 
 interface CustomFormFieldProps<T extends FieldValues> {
-  form: UseFormReturn<T>;
+  control: Control<T>;
   name: Path<T>;
   label: string;
-  isLoading: boolean;
   placeholder?: string;
+  isLoading: boolean;
 }
 
 const CustomField = <T extends FieldValues>({
-  form,
+  control,
   name,
   label,
   placeholder,
@@ -29,7 +29,7 @@ const CustomField = <T extends FieldValues>({
 }: CustomFormFieldProps<T>) => {
   return (
     <FormField
-      control={form.control}
+      control={control}
       name={name}
       render={({ field }) => (
         <FormItem>
