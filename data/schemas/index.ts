@@ -3,7 +3,7 @@ import { z, ZodSchema } from "zod";
 import { IBillboardPlainText } from "@/data/interfaces/billboard.interface";
 import { IStorePlainText } from "../interfaces/store.interface";
 
-export const storeFormScheme: ZodSchema<
+export const storeFormSchema: ZodSchema<
   Omit<IStorePlainText, "id" | "userId" | "createdAt" | "updatedAt">
 > = z.object({
   name: z
@@ -11,7 +11,7 @@ export const storeFormScheme: ZodSchema<
     .min(3, { message: "Store name must be minimum 3 characters" }),
 });
 
-export const billBoardFormScheme: ZodSchema<
+export const billBoardFormSchema: ZodSchema<
   Omit<IBillboardPlainText, "id" | "createdAt" | "updatedAt">
 > = z.object({
   label: z.string().min(1),

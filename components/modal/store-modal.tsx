@@ -20,20 +20,20 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 // states
 import { useStoreModal } from "@/hooks/useStoreModal";
-//schemes
-import { storeFormScheme } from "@/data/schemas";
+//schemas
+import { storeFormSchema } from "@/data/schemas";
 
 const StoreModal = () => {
   const { isOpen, onClose } = useStoreModal();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const form = useForm<z.infer<typeof storeFormScheme>>({
-    resolver: zodResolver(storeFormScheme),
+  const form = useForm<z.infer<typeof storeFormSchema>>({
+    resolver: zodResolver(storeFormSchema),
     defaultValues: {
       name: "",
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof storeFormScheme>) => {
+  const onSubmit = async (values: z.infer<typeof storeFormSchema>) => {
     setIsLoading(true);
     try {
       const response = await axios.post("/api/stores", values);
