@@ -12,37 +12,30 @@ import toast from "react-hot-toast";
 import Heading from "@/components/Heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import AlertModal from "@/components/modal/alert-modal";
 import ApiAlert from "@/components/ApiAlert";
+import CustomField from "@/components/custom-field";
 // hooks
 import { useOrigin } from "@/hooks/useOrigin";
 // types
 import { SettingsFormProps } from "@/data/types";
-// schemes
-import { storeFormScheme } from "@/data/schemas";
+// schemas
+import { storeFormSchema } from "@/data/schemas";
 
 const SettingsForm = ({ initialData }: SettingsFormProps) => {
   const { storeId } = useParams<{ storeId: string }>();
   const router = useRouter();
   const origin = useOrigin();
 
-  const form = useForm<z.infer<typeof storeFormScheme>>({
-    resolver: zodResolver(storeFormScheme),
+  const form = useForm<z.infer<typeof storeFormSchema>>({
+    resolver: zodResolver(storeFormSchema),
     defaultValues: initialData,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
 
-  const onSubmit = async (values: z.infer<typeof storeFormScheme>) => {
+  const onSubmit = async (values: z.infer<typeof storeFormSchema>) => {
     setIsLoading(true);
     try {
       const response = await axios.patch(`/api/stores/${storeId}`, values);
@@ -98,22 +91,12 @@ const SettingsForm = ({ initialData }: SettingsFormProps) => {
           className="w-full space-y-8"
         >
           <div className="grid grid-cols-3 gap-8">
-            <FormField
-              control={form.control}
+            <CustomField
               name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isLoading}
-                      placeholder="Your store name..."
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Name"
+              placeholder="Your store name..."
+              control={form.control}
+              isLoading={isLoading}
             />
           </div>
 
