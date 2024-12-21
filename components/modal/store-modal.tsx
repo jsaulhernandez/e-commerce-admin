@@ -7,17 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import axios from "axios";
 // components
-import CustomModal from "../CustomModal";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import CustomModal from "@/components/CustomModal";
+import { Form } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import CustomField from "@/components/custom-field";
 // states
 import { useStoreModal } from "@/hooks/useStoreModal";
 //schemas
@@ -63,22 +56,12 @@ const StoreModal = () => {
         <div className="space-y-4 py-2 pb-4">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-              <FormField
-                control={form.control}
+              <CustomField
                 name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        disabled={isLoading}
-                        placeholder="Your store name..."
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                label="Name"
+                placeholder="Your store name..."
+                control={form.control}
+                isLoading={isLoading}
               />
 
               <div className="pt-6  space-x-2 flex items-center justify-end w-full">
