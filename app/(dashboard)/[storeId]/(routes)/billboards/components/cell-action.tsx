@@ -32,6 +32,7 @@ const CellAction = ({ data }: { data: IBillboardPlainText }) => {
   };
 
   const onDelete = async () => {
+    console.log("open", open);
     try {
       setLoading(true);
       const { imageUrl } = data;

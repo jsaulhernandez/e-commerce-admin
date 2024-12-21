@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/data-table";
 // columns
-import { columnsBillboard } from "../[billboardId]/_components/columns";
+import { columnsBillboard } from "./columns";
 // interfaces
 import { IBillboardPlainText } from "@/data/interfaces/billboard.interface";
 
