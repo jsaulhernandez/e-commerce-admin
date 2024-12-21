@@ -54,12 +54,9 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
     setIsLoading(true);
     try {
       if (initialData) {
-        await axios.patch(
-          `/api/stores/${storeId}/billboards/${billboardId}`,
-          values
-        );
+        await axios.patch(`/api/${storeId}/billboards/${billboardId}`, values);
       } else {
-        await axios.post(`/api/stores/${storeId}/billboards`, values);
+        await axios.post(`/api/${storeId}/billboards`, values);
       }
 
       toast.success(toastMessage);
@@ -82,9 +79,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
           data: { imageUrl },
         })
         .then(async () => {
-          await axios.delete(
-            `/api/stores/${storeId}/billboards/${billboardId}`
-          );
+          await axios.delete(`/api/${storeId}/billboards/${billboardId}`);
         });
 
       toast.success("Billboard Removed");

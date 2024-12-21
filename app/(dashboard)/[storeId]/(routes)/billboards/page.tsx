@@ -5,7 +5,7 @@ import {
   documentReference,
   getCollectionFirebase,
 } from "@/lib/firebase-functions";
-import BillBoardClient from "./components/client";
+import BillBoardClient from "./_components/client";
 // types
 import { BillBoardsPageProps } from "@/data/types";
 import {

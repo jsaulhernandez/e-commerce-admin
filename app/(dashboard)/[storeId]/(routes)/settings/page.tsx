@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 // components
-import SettingsForm from "./components/settings-form";
+import SettingsForm from "./_components/settings-form";
 // interfaces
 import { IStore } from "@/data/interfaces/store.interface";
 // types
