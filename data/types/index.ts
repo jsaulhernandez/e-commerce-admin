@@ -84,8 +84,8 @@ export type BillboardFormProps = {
 };
 
 export type ImageUploadProps = {
-  disabled?: boolean;
   onChange: (value: string) => void;
   onRemove: (value: string) => void;
   value: string[];
+  onSetIsUploading: (value: boolean) => void;
 };

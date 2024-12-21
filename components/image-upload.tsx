@@ -11,7 +11,12 @@ import { Button } from "./ui/button";
 // types
 import { ImageUploadProps } from "@/data/types";
 
-const ImageUpload = ({ onChange, onRemove, value }: ImageUploadProps) => {
+const ImageUpload = ({
+  onChange,
+  onRemove,
+  value,
+  onSetIsUploading,
+}: ImageUploadProps) => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -25,6 +30,7 @@ const ImageUpload = ({ onChange, onRemove, value }: ImageUploadProps) => {
     const file = e.target.files![0];
     console.log(file);
     setIsLoading(true);
+    onSetIsUploading(true);
 
     const formData = new FormData();
     formData.append("file", file);
@@ -38,10 +44,12 @@ const ImageUpload = ({ onChange, onRemove, value }: ImageUploadProps) => {
 
       onChange(response.data.url);
       setIsLoading(false);
+      onSetIsUploading(false);
       toast.success("Image upload");
     } catch (error) {
       console.error("Image upload failed:", error);
       setIsLoading(false);
+      onSetIsUploading(false);
     }
   };
 

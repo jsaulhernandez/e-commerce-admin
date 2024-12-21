@@ -20,9 +20,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import AlertModal from "@/components/modal/alert-modal";
 import ImageUpload from "@/components/image-upload";
+import CustomField from "@/components/custom-field";
 // types
 import { BillboardFormProps } from "@/data/types";
 // schemas
@@ -40,6 +40,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
     defaultValues: initialData || { label: "", imageUrl: "" },
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
 
   const title = initialData ? "Edit Billboard" : "Create Billboard";
@@ -128,9 +129,9 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
                 <FormControl>
                   <ImageUpload
                     value={field.value ? [field.value] : []}
-                    disabled={isLoading}
                     onChange={(url) => field.onChange(url)}
                     onRemove={() => field.onChange("")}
+                    onSetIsUploading={setIsUploading}
                   />
                 </FormControl>
                 <FormMessage />
@@ -139,26 +140,16 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
           />
 
           <div className="grid grid-cols-3 gap-8">
-            <FormField
-              control={form.control}
+            <CustomField
               name="label"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isLoading}
-                      placeholder="Your billboard name..."
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Name"
+              placeholder="Your billboard name..."
+              control={form.control}
+              isLoading={isLoading}
             />
           </div>
 
-          <Button disabled={isLoading} type="submit" size={"sm"}>
+          <Button disabled={isLoading || isUploading} type="submit" size={"sm"}>
             {action}
           </Button>
         </form>
