@@ -25,11 +25,8 @@ import AlertModal from "@/components/modal/alert-modal";
 import ImageUpload from "@/components/image-upload";
 // types
 import { BillboardFormProps } from "@/data/types";
-
-const formSchema = z.object({
-  label: z.string().min(1),
-  imageUrl: z.string().min(1),
-});
+// schemes
+import { billBoardFormScheme } from "@/data/schemas";
 
 const BillboardForm = ({ initialData }: BillboardFormProps) => {
   const { storeId, billboardId } = useParams<{
@@ -38,8 +35,8 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
   }>();
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof billBoardFormScheme>>({
+    resolver: zodResolver(billBoardFormScheme),
     defaultValues: initialData || { label: "", imageUrl: "" },
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -50,7 +47,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
   const action = initialData ? "Save Changes" : "Create Billboard";
   const toastMessage = initialData ? "Billboard Updated" : "Billboard Created";
   // 5:19:08
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof billBoardFormScheme>) => {
     setIsLoading(true);
     try {
       if (initialData) {

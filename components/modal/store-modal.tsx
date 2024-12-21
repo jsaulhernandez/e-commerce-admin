@@ -20,24 +20,20 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 // states
 import { useStoreModal } from "@/hooks/useStoreModal";
-
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(3, { message: "Store name must be minimum 3 characters" }),
-});
+//schemes
+import { storeFormScheme } from "@/data/schemas";
 
 const StoreModal = () => {
   const { isOpen, onClose } = useStoreModal();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof storeFormScheme>>({
+    resolver: zodResolver(storeFormScheme),
     defaultValues: {
       name: "",
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof storeFormScheme>) => {
     setIsLoading(true);
     try {
       const response = await axios.post("/api/stores", values);

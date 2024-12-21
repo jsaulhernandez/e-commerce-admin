@@ -27,26 +27,22 @@ import ApiAlert from "@/components/ApiAlert";
 import { useOrigin } from "@/hooks/useOrigin";
 // types
 import { SettingsFormProps } from "@/data/types";
-
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(3, { message: "Store name must be minimum 3 characters" }),
-});
+// schemes
+import { storeFormScheme } from "@/data/schemas";
 
 const SettingsForm = ({ initialData }: SettingsFormProps) => {
   const { storeId } = useParams<{ storeId: string }>();
   const router = useRouter();
   const origin = useOrigin();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof storeFormScheme>>({
+    resolver: zodResolver(storeFormScheme),
     defaultValues: initialData,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof storeFormScheme>) => {
     setIsLoading(true);
     try {
       const response = await axios.patch(`/api/stores/${storeId}`, values);
