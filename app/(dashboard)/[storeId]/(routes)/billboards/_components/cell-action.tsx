@@ -1,23 +1,16 @@
 "use client";
 
 import axios from "axios";
-import { Copy, Edit, MoreVertical, Trash } from "lucide-react";
+import { Copy, Edit, Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 // components
 import AlertModal from "@/components/modal/alert-modal";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import CustomDropdownActions from "@/components/custom-dropdown-actions";
 // interfaces
 import { IBillboardPlainText } from "@/data/interfaces/billboard.interface";
+import { IDropdownItem } from "@/data/interfaces/dropdown.interface";
 
 const CellAction = ({ data }: { data: IBillboardPlainText }) => {
   const { storeId } = useParams<{ storeId: string }>();
@@ -26,13 +19,30 @@ const CellAction = ({ data }: { data: IBillboardPlainText }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
 
+  const dropdownItems: IDropdownItem[] = [
+    {
+      label: "Copy ID",
+      icon: <Copy className="h-4 w-4 mr-2" />,
+      onClick: () => onCopy(data.id),
+    },
+    {
+      label: "Edit",
+      icon: <Edit className="h-4 w-4 mr-2" />,
+      onClick: () => router.push(`/${storeId}/billboards/${data.id}`),
+    },
+    {
+      label: "Delete",
+      icon: <Trash className="h-4 w-4 mr-2" />,
+      onClick: () => setOpen(true),
+    },
+  ];
+
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
     toast.success("Billboard id copied to clipboard");
   };
 
   const onDelete = async () => {
-    console.log("open", open);
     try {
       setLoading(true);
       const { imageUrl } = data;
@@ -41,7 +51,7 @@ const CellAction = ({ data }: { data: IBillboardPlainText }) => {
           data: { imageUrl },
         })
         .then(async () => {
-          await axios.delete(`/api/stores/${storeId}/billboards/${data.id}`);
+          await axios.delete(`/api/${storeId}/billboards/${data.id}`);
         });
 
       toast.success("Billboard Removed");
@@ -64,34 +74,7 @@ const CellAction = ({ data }: { data: IBillboardPlainText }) => {
         onConfirm={onDelete}
         loading={loading}
       />
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button className="h8 w-8 p-0" variant={"ghost"}>
-            <span className="sr-only">Open menu</span>
-            <MoreVertical className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => onCopy(data.id)}>
-            <Copy className="h-4 w-4 mr-2" />
-            Copy ID
-          </DropdownMenuItem>
-
-          <DropdownMenuItem
-            onClick={() => router.push(`/${storeId}/billboards/${data.id}`)}
-          >
-            <Edit className="h-4 w-4 mr-2" />
-            Update
-          </DropdownMenuItem>
-
-          <DropdownMenuItem onClick={() => setOpen(true)}>
-            <Trash className="h-4 w-4 mr-2" />
-            Delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <CustomDropdownActions items={dropdownItems} />
     </>
   );
 };

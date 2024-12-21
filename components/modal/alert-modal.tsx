@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { BarLoader } from "react-spinners";
 // components
 import CustomModal from "@/components/CustomModal";
 import { Button } from "@/components/ui/button";
@@ -35,7 +36,10 @@ const AlertModal = ({
           Cancel
         </Button>
         <Button disabled={loading} variant={"destructive"} onClick={onConfirm}>
-          Confirm
+          <div className="">
+            Confirm
+            {loading && <BarLoader color="#fff" className="!w-full" />}
+          </div>
         </Button>
       </div>
     </CustomModal>
