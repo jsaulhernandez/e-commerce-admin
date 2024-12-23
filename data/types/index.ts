@@ -89,3 +89,7 @@ export type ImageUploadProps = {
   value: string[];
   onSetIsUploading: (value: boolean) => void;
 };
+
+export type CategoriesPageProps = {
+  params: { storeId: string };
+};

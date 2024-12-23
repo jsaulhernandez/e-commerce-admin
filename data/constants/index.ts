@@ -1,1 +1,1 @@
-export type pathFirebase = "stores" | "billboards";
+export type pathFirebase = "stores" | "billboards" | "categories";
