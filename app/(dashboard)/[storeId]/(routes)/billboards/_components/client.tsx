@@ -32,7 +32,7 @@ const BillBoardClient = ({ data }: { data: IBillboardPlainText[] }) => {
       </div>
 
       <Separator />
-      <DataTable searchKey="label" columns={columnsBillboard} data={data} />
+      <DataTable searchKey={"label"} columns={columnsBillboard} data={data} />
     </>
   );
 };
