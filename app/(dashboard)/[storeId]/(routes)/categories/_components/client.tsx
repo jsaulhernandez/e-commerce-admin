@@ -37,7 +37,7 @@ const CategoryClient = ({ data }: { data: ICategoryPlainText[] }) => {
       <DataTable searchKey={"name"} columns={columnsCategories} data={data} />
 
       <Heading title="API" description="API calls for categories" />
-      <ApiList entityName="categories" entityNameId="categoryId " />
+      <ApiList entityName="categories" entityNameId="categoryId" />
     </>
   );
 };

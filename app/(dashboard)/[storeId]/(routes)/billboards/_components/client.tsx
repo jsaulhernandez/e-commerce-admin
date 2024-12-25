@@ -11,6 +11,7 @@ import { DataTable } from "@/components/data-table";
 import { columnsBillboard } from "./columns";
 // interfaces
 import { IBillboardPlainText } from "@/data/interfaces/billboard.interface";
+import ApiList from "@/components/api-list";
 
 const BillBoardClient = ({ data }: { data: IBillboardPlainText[] }) => {
   const params = useParams<{ storeId: string }>();
@@ -33,6 +34,7 @@ const BillBoardClient = ({ data }: { data: IBillboardPlainText[] }) => {
 
       <Separator />
       <DataTable searchKey={"label"} columns={columnsBillboard} data={data} />
+      <ApiList entityName="billboards" entityNameId="billboardId" />
     </>
   );
 };
