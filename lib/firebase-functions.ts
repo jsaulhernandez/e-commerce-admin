@@ -38,12 +38,15 @@ function converter<T extends DocumentData>() {
 /**
  * Generic function that return a collection with custom model objects with Firestore
  * @param path a slash-separated path to a collection
+ * @param pathSegments additional path segments to apply relative to the first
  * @returns a CollectionReference that uses the provided converter
  */
 export const collectionReference = <T extends DocumentData>(
-  path: pathFirebase
+  path: pathFirebase,
+  ...pathSegments: string[]
 ): CollectionReference<T, DocumentData> => {
-  const collectionRef = collection(db, path) as CollectionReference<T>;
+  const fullPath = [path, ...pathSegments].join("/");
+  const collectionRef = collection(db, fullPath) as CollectionReference<T>;
 
   return collectionRef.withConverter(converter<T>());
 };
