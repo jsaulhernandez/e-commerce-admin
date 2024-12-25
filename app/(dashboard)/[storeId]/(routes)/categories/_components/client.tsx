@@ -8,6 +8,7 @@ import { DataTable } from "@/components/data-table";
 import Heading from "@/components/Heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import ApiList from "@/components/api-list";
 // interfaces
 import { ICategoryPlainText } from "@/data/interfaces/category.interface";
 // columns
@@ -34,6 +35,9 @@ const CategoryClient = ({ data }: { data: ICategoryPlainText[] }) => {
 
       <Separator />
       <DataTable searchKey={"name"} columns={columnsCategories} data={data} />
+
+      <Heading title="API" description="API calls for categories" />
+      <ApiList entityName="categories" entityNameId="categoryId " />
     </>
   );
 };
