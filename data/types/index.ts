@@ -1,8 +1,12 @@
-import { PopoverTrigger } from "@/components/ui/popover";
 import React from "react";
+import { Control, FieldValues, Path } from "react-hook-form";
+// components
+import { PopoverTrigger } from "@/components/ui/popover";
+// interfaces
 import { IStorePlainText } from "../interfaces/store.interface";
 import { IOption } from "../interfaces/option.interface";
 import { IBillboardPlainText } from "../interfaces/billboard.interface";
+import { ICategoryPlainText } from "../interfaces/category.interface";
 
 export type GenericLayoutProps = {
   children: React.ReactNode;
@@ -93,3 +97,25 @@ export type ImageUploadProps = {
 export type CategoriesPageProps = {
   params: { storeId: string };
 };
+
+export type CategoryPageProps = {
+  params: { storeId: string; categoryId: string };
+};
+
+export type CategoryFormProps = {
+  initialData?: ICategoryPlainText;
+  billboards: IBillboardPlainText[];
+};
+
+export type CustomFormFieldProps<T extends FieldValues> = {
+  control: Control<T>;
+  name: Path<T>;
+  label: string;
+  placeholder?: string;
+  isLoading: boolean;
+};
+
+export type CustomFormSelectProps<T extends FieldValues> =
+  CustomFormFieldProps<T> & {
+    data: IOption[];
+  };

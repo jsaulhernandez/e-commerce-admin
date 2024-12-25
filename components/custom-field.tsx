@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Control, FieldValues, Path } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 // components
 import {
   FormControl,
@@ -11,14 +11,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-interface CustomFormFieldProps<T extends FieldValues> {
-  control: Control<T>;
-  name: Path<T>;
-  label: string;
-  placeholder?: string;
-  isLoading: boolean;
-}
+// types
+import { CustomFormFieldProps } from "@/data/types";
 
 const CustomField = <T extends FieldValues>({
   control,
