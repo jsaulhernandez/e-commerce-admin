@@ -32,10 +32,10 @@ const DashboardLayout = async ({ params, children }: DashboardLayoutProps) => {
   if (!store.id) redirect("/");
 
   return (
-    <>
+    <div className="flex flex-col items-center justify-center">
       <Navbar />
-      {children}
-    </>
+      <div className="container p-6">{children}</div>
+    </div>
   );
 };
 

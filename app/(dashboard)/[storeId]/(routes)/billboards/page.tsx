@@ -35,8 +35,8 @@ const BillboardsPage = async ({ params }: BillBoardsPageProps) => {
   });
 
   return (
-    <div className="flex flex-col px-4">
-      <div className="flex-1 space-y-4 pt-6">
+    <div className="flex flex-col">
+      <div className="flex-1 space-y-4">
         <BillBoardClient data={dataList} />
       </div>
     </div>

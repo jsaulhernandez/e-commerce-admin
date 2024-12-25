@@ -30,8 +30,8 @@ const Navbar = async () => {
     })) ?? [];
 
   return (
-    <div className="border-b">
-      <div className="flex h-16 items-center px-4">
+    <div className="flex justify-center w-full border-b">
+      <div className="flex h-16 items-center container px-6">
         <StoreSwitcher items={stores} />
         {/* routes */}
         <MainNav />
