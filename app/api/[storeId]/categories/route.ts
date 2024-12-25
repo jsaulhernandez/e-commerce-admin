@@ -77,10 +77,7 @@ export const GET = async (
   { params }: { params: { storeId: string } }
 ): Promise<NextResponse> => {
   try {
-    const { userId } = await auth();
     const { storeId } = await params;
-
-    if (!userId) throw new NextResponse("Un-Authorized", { status: 404 });
 
     if (!storeId)
       throw new NextResponse("Store ID is required", { status: 400 });
