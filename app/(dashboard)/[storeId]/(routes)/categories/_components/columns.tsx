@@ -3,23 +3,14 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 // components
-import CellImage from "./cell-image";
 import { Button } from "@/components/ui/button";
 import CellAction from "./cell-action";
 // interfaces
-import { IBillboardPlainText } from "@/data/interfaces/billboard.interface";
+import { ICategoryPlainText } from "@/data/interfaces/category.interface";
 
-export const columnsBillboard: ColumnDef<IBillboardPlainText>[] = [
+export const columnsCategories: ColumnDef<ICategoryPlainText>[] = [
   {
-    accessorKey: "imageUrl",
-    header: "Image",
-    cell: ({ row }) => {
-      const { imageUrl } = row.original;
-      return <CellImage imageUrl={imageUrl} />;
-    },
-  },
-  {
-    accessorKey: "label",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <Button
@@ -27,6 +18,20 @@ export const columnsBillboard: ColumnDef<IBillboardPlainText>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: "billboardLabel",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Billboard
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
