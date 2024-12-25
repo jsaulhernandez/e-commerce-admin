@@ -119,3 +119,8 @@ export type CustomFormSelectProps<T extends FieldValues> =
   CustomFormFieldProps<T> & {
     data: IOption[];
   };
+
+export type ApiListProps = {
+  entityName: string;
+  entityNameId: string;
+};
