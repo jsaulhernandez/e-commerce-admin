@@ -14,6 +14,6 @@ export interface ICategoryPlainText {
   billboardId: string;
   billboardLabel: string;
   name: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }

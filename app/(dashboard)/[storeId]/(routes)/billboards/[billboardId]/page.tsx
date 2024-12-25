@@ -1,4 +1,3 @@
-import { format } from "date-fns/format";
 // components
 import BillboardForm from "./_components/billboard-form";
 // interfaces
@@ -10,6 +9,7 @@ import {
 import { BillBoardPageProps } from "@/data/types";
 // utils
 import { documentReference, getDataFirebase } from "@/lib/firebase-functions";
+import { map } from "@/lib/utils";
 
 const BillBoardPage = async ({ params }: BillBoardPageProps) => {
   const { storeId, billboardId } = await params;
@@ -23,15 +23,11 @@ const BillBoardPage = async ({ params }: BillBoardPageProps) => {
   let initialData: IBillboardPlainText | undefined = undefined;
 
   if (billboard) {
-    initialData = {
-      ...billboard!,
-      createdAt: billboard!.createdAt
-        ? format(billboard!.createdAt.toDate(), "MMMM do, yyyy")
-        : "",
-      updatedAt: billboard!.updatedAt
-        ? format(billboard!.updatedAt.toDate(), "MMMM do, yyyy")
-        : "",
-    };
+    initialData = map<IBillboard, IBillboardPlainText>(billboard, [
+      "id",
+      "label",
+      "imageUrl",
+    ]);
   }
 
   return (

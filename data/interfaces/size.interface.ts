@@ -1,17 +1,17 @@
 import { Timestamp } from "firebase/firestore";
 
-export interface IBillboard {
+export interface ISize {
   id: string;
-  label: string;
-  imageUrl: string;
+  name: string;
+  value: string;
   createdAt?: Timestamp;
   updatedAt?: Timestamp;
 }
 
-export interface IBillboardPlainText {
+export interface ISizePlainText {
   id: string;
-  label: string;
-  imageUrl: string;
+  name: string;
+  value: string;
   createdAt?: string;
   updatedAt?: string;
 }

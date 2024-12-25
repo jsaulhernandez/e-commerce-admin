@@ -3,11 +3,12 @@ import { redirect } from "next/navigation";
 // components
 import SettingsForm from "./_components/settings-form";
 // interfaces
-import { IStore } from "@/data/interfaces/store.interface";
+import { IStore, IStorePlainText } from "@/data/interfaces/store.interface";
 // types
 import { SettingsPageProps } from "@/data/types";
 // utils
 import { documentReference, getDataFirebase } from "@/lib/firebase-functions";
+import { map } from "@/lib/utils";
 
 const SettingsPage = async ({ params }: SettingsPageProps) => {
   const { storeId } = await params;
@@ -22,11 +23,11 @@ const SettingsPage = async ({ params }: SettingsPageProps) => {
   if (!store) redirect("/");
   if (store.userId !== userId) redirect("/");
 
-  const storeConverted = {
-    ...store,
-    createdAt: store.createdAt.toDate().toISOString(),
-    updatedAt: store.updatedAt.toDate().toISOString(),
-  };
+  const storeConverted: IStorePlainText = map<IStore, IStorePlainText>(store, [
+    "id",
+    "name",
+    "userId",
+  ]);
 
   return (
     <div className="flex flex-col">
