@@ -1,8 +1,9 @@
 import { z, ZodSchema } from "zod";
 // interfaces
 import { IBillboardPlainText } from "@/data/interfaces/billboard.interface";
-import { IStorePlainText } from "../interfaces/store.interface";
-import { ICategoryPlainText } from "../interfaces/category.interface";
+import { IStorePlainText } from "@/data/interfaces/store.interface";
+import { ICategoryPlainText } from "@/data/interfaces/category.interface";
+import { ISizePlainText } from "@/data/interfaces/size.interface";
 
 export const storeFormSchema: ZodSchema<
   Omit<IStorePlainText, "id" | "userId" | "createdAt" | "updatedAt">
@@ -24,4 +25,11 @@ export const categoryFormSchema: ZodSchema<
 > = z.object({
   billboardId: z.string().min(1),
   name: z.string().min(1),
+});
+
+export const sizeFormSchema: ZodSchema<
+  Omit<ISizePlainText, "id" | "createdAt" | "updatedAt">
+> = z.object({
+  name: z.string().min(1),
+  value: z.string().min(1),
 });

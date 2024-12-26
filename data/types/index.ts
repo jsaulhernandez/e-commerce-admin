@@ -124,3 +124,14 @@ export type ApiListProps = {
   entityName: string;
   entityNameId: string;
 };
+
+export type SizePageProps = {
+  params: {
+    storeId: string;
+    sizeId: string;
+  };
+};
+
+export type GenericFormProps<T extends object> = {
+  initialData?: T;
+};
