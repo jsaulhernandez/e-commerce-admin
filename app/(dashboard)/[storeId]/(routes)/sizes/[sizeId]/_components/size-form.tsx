@@ -104,6 +104,7 @@ const SizeForm = ({ initialData }: GenericFormProps<ISizePlainText>) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
+          autoComplete="off"
           className="w-full space-y-8"
         >
           <div className="grid grid-cols-3 gap-8">
