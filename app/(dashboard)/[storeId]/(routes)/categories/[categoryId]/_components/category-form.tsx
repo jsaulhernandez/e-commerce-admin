@@ -68,7 +68,7 @@ const CategoryForm = ({
 
       toast.success(toastMessage);
       router.refresh();
-      router.push(`/${storeId}/categories`);
+      onGoBack();
     } catch (error) {
       console.error("[Error]", error);
       toast.error("Something went wrong");
@@ -84,7 +84,7 @@ const CategoryForm = ({
 
       toast.success("Category Removed");
       router.refresh();
-      router.push(`/${storeId}/categories`);
+      onGoBack();
     } catch (error) {
       console.error("[Error]", error);
       toast.error("Something went wrong");
@@ -92,6 +92,10 @@ const CategoryForm = ({
       setIsLoading(false);
       setOpen(false);
     }
+  };
+
+  const onGoBack = () => {
+    router.push(`/${storeId}/categories`);
   };
 
   return (
@@ -142,9 +146,20 @@ const CategoryForm = ({
             />
           </div>
 
-          <Button disabled={isLoading} type="submit" size={"sm"}>
-            {action}
-          </Button>
+          <div className="flex gap-4">
+            <Button
+              disabled={isLoading}
+              type="button"
+              size={"sm"}
+              variant={"outline"}
+              onClick={onGoBack}
+            >
+              Regresar
+            </Button>
+            <Button disabled={isLoading} type="submit" size={"sm"}>
+              {action}
+            </Button>
+          </div>
         </form>
       </Form>
     </>

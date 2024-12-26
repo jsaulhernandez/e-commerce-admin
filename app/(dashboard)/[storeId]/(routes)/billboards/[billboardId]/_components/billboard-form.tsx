@@ -63,7 +63,7 @@ const BillboardForm = ({
 
       toast.success(toastMessage);
       router.refresh();
-      router.push(`/${storeId}/billboards`);
+      onGoBack();
     } catch (error) {
       console.error("[Error]", error);
       toast.error("Something went wrong");
@@ -86,7 +86,7 @@ const BillboardForm = ({
 
       toast.success("Billboard Removed");
       router.refresh();
-      router.push(`/${storeId}/billboards`);
+      onGoBack();
     } catch (error) {
       console.error("[Error]", error);
       toast.error("Something went wrong");
@@ -94,6 +94,10 @@ const BillboardForm = ({
       setIsLoading(false);
       setOpen(false);
     }
+  };
+
+  const onGoBack = () => {
+    router.push(`/${storeId}/billboards`);
   };
 
   return (
@@ -154,9 +158,24 @@ const BillboardForm = ({
             />
           </div>
 
-          <Button disabled={isLoading || isUploading} type="submit" size={"sm"}>
-            {action}
-          </Button>
+          <div className="flex gap-4">
+            <Button
+              disabled={isLoading || isUploading}
+              type="button"
+              size={"sm"}
+              variant={"outline"}
+              onClick={onGoBack}
+            >
+              Regresar
+            </Button>
+            <Button
+              disabled={isLoading || isUploading}
+              type="submit"
+              size={"sm"}
+            >
+              {action}
+            </Button>
+          </div>
         </form>
       </Form>
     </>

@@ -52,7 +52,7 @@ const SizeForm = ({ initialData }: GenericFormProps<ISizePlainText>) => {
 
       toast.success(toastMessage);
       router.refresh();
-      router.push(`/${storeId}/sizes`);
+      onGoBack();
     } catch (error) {
       console.error("[Error]", error);
       toast.error("Something went wrong");
@@ -68,7 +68,7 @@ const SizeForm = ({ initialData }: GenericFormProps<ISizePlainText>) => {
 
       toast.success("Size Removed");
       router.refresh();
-      router.push(`/${storeId}/sizes`);
+      onGoBack();
     } catch (error) {
       console.error("[Error]", error);
       toast.error("Something went wrong");
@@ -76,6 +76,10 @@ const SizeForm = ({ initialData }: GenericFormProps<ISizePlainText>) => {
       setIsLoading(false);
       setOpen(false);
     }
+  };
+
+  const onGoBack = () => {
+    router.push(`/${storeId}/sizes`);
   };
 
   return (
@@ -125,9 +129,20 @@ const SizeForm = ({ initialData }: GenericFormProps<ISizePlainText>) => {
             />
           </div>
 
-          <Button disabled={isLoading} type="submit" size={"sm"}>
-            {action}
-          </Button>
+          <div className="flex gap-4">
+            <Button
+              disabled={isLoading}
+              type="button"
+              size={"sm"}
+              variant={"outline"}
+              onClick={onGoBack}
+            >
+              Regresar
+            </Button>
+            <Button disabled={isLoading} type="submit" size={"sm"}>
+              {action}
+            </Button>
+          </div>
         </form>
       </Form>
     </>
