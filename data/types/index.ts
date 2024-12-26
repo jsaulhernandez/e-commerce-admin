@@ -6,7 +6,6 @@ import { PopoverTrigger } from "@/components/ui/popover";
 import { IStorePlainText } from "../interfaces/store.interface";
 import { IOption } from "../interfaces/option.interface";
 import { IBillboardPlainText } from "../interfaces/billboard.interface";
-import { ICategoryPlainText } from "../interfaces/category.interface";
 
 export type GenericLayoutProps = {
   children: React.ReactNode;
@@ -53,8 +52,8 @@ export type SettingsPageProps = {
   };
 };
 
-export type SettingsFormProps = {
-  initialData: IStorePlainText;
+export type GenericFormProps<T extends object> = {
+  initialData?: T;
 };
 
 export type HeadingProps = {
@@ -83,10 +82,6 @@ export type BillBoardPageProps = {
   params: { storeId: string; billboardId: string };
 };
 
-export type BillboardFormProps = {
-  initialData?: IBillboardPlainText;
-};
-
 export type ImageUploadProps = {
   onChange: (value: string) => void;
   onRemove: (value: string) => void;
@@ -102,8 +97,7 @@ export type CategoryPageProps = {
   params: { storeId: string; categoryId: string };
 };
 
-export type CategoryFormProps = {
-  initialData?: ICategoryPlainText;
+export type CategoryFormProps<T extends object> = GenericFormProps<T> & {
   billboards: IBillboardPlainText[];
 };
 
@@ -130,8 +124,4 @@ export type SizePageProps = {
     storeId: string;
     sizeId: string;
   };
-};
-
-export type GenericFormProps<T extends object> = {
-  initialData?: T;
 };

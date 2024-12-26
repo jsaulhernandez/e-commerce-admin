@@ -24,7 +24,10 @@ import { CategoryFormProps } from "@/data/types";
 // schemas
 import { categoryFormSchema } from "@/data/schemas";
 
-const CategoryForm = ({ billboards, initialData }: CategoryFormProps) => {
+const CategoryForm = ({
+  billboards,
+  initialData,
+}: CategoryFormProps<ICategoryPlainText>) => {
   const { storeId, categoryId } = useParams<{
     storeId: string;
     categoryId: string;

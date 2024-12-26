@@ -23,12 +23,16 @@ import {
 import AlertModal from "@/components/modal/alert-modal";
 import ImageUpload from "@/components/image-upload";
 import CustomField from "@/components/custom-field";
+// interfaces
+import { IBillboardPlainText } from "@/data/interfaces/billboard.interface";
 // types
-import { BillboardFormProps } from "@/data/types";
+import { GenericFormProps } from "@/data/types";
 // schemas
 import { billBoardFormSchema } from "@/data/schemas";
 
-const BillboardForm = ({ initialData }: BillboardFormProps) => {
+const BillboardForm = ({
+  initialData,
+}: GenericFormProps<IBillboardPlainText>) => {
   const { storeId, billboardId } = useParams<{
     storeId: string;
     billboardId: string;

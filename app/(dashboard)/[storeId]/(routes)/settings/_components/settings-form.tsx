@@ -18,12 +18,14 @@ import ApiAlert from "@/components/ApiAlert";
 import CustomField from "@/components/custom-field";
 // hooks
 import { useOrigin } from "@/hooks/useOrigin";
+// interfaces
+import { IStorePlainText } from "@/data/interfaces/store.interface";
 // types
-import { SettingsFormProps } from "@/data/types";
+import { GenericFormProps } from "@/data/types";
 // schemas
 import { storeFormSchema } from "@/data/schemas";
 
-const SettingsForm = ({ initialData }: SettingsFormProps) => {
+const SettingsForm = ({ initialData }: GenericFormProps<IStorePlainText>) => {
   const { storeId } = useParams<{ storeId: string }>();
   const router = useRouter();
   const origin = useOrigin();
