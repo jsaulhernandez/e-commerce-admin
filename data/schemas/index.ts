@@ -4,8 +4,8 @@ import { IBillboardPlainText } from "@/data/interfaces/billboard.interface";
 import { IStorePlainText } from "@/data/interfaces/store.interface";
 import { ICategoryPlainText } from "@/data/interfaces/category.interface";
 import { ISizePlainText } from "@/data/interfaces/size.interface";
-import { IKitchenPlainText } from "../interfaces/kitchen.interface";
-import { ICuisinePlainText } from "../interfaces/cuisine.interface";
+import { IKitchenPlainText } from "@/data/interfaces/kitchen.interface";
+import { ICuisinePlainText } from "@/data/interfaces/cuisine.interface";
 
 export const storeFormSchema: ZodSchema<
   Omit<IStorePlainText, "id" | "userId" | "createdAt" | "updatedAt">
