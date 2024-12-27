@@ -4,6 +4,7 @@ import { IBillboardPlainText } from "@/data/interfaces/billboard.interface";
 import { IStorePlainText } from "@/data/interfaces/store.interface";
 import { ICategoryPlainText } from "@/data/interfaces/category.interface";
 import { ISizePlainText } from "@/data/interfaces/size.interface";
+import { IKitchenPlainText } from "../interfaces/kitchen.interface";
 
 export const storeFormSchema: ZodSchema<
   Omit<IStorePlainText, "id" | "userId" | "createdAt" | "updatedAt">
@@ -29,6 +30,13 @@ export const categoryFormSchema: ZodSchema<
 
 export const sizeFormSchema: ZodSchema<
   Omit<ISizePlainText, "id" | "createdAt" | "updatedAt">
+> = z.object({
+  name: z.string().min(1),
+  value: z.string().min(1),
+});
+
+export const kitchenFormSchema: ZodSchema<
+  Omit<IKitchenPlainText, "id" | "createdAt" | "updatedAt">
 > = z.object({
   name: z.string().min(1),
   value: z.string().min(1),

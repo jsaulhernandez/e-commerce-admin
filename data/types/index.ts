@@ -125,3 +125,10 @@ export type SizePageProps = {
     sizeId: string;
   };
 };
+
+export type KitchenPageProps = {
+  params: {
+    storeId: string;
+    kitchenId: string;
+  };
+};
