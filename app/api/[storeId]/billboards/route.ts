@@ -1,21 +1,17 @@
+import { auth } from "@clerk/nextjs/server";
+import { addDoc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { NextResponse } from "next/server";
+// interfaces
 import { IBillboard } from "@/data/interfaces/billboard.interface";
 import { IStore } from "@/data/interfaces/store.interface";
-import { db } from "@/lib/firebase";
+// utils
 import {
+  collectionReference,
   collectionReferenceByDoc,
   documentReference,
   getCollectionFirebase,
   getDataFirebase,
 } from "@/lib/firebase-functions";
-import { auth } from "@clerk/nextjs/server";
-import {
-  addDoc,
-  collection,
-  doc,
-  serverTimestamp,
-  updateDoc,
-} from "firebase/firestore";
-import { NextResponse } from "next/server";
 
 export const POST = async (
   req: Request,
@@ -55,13 +51,13 @@ export const POST = async (
     } as IBillboard;
 
     const billboardRef = await addDoc(
-      collection(db, "stores", storeId, "billboards"),
+      collectionReference("stores", storeId, "billboards"),
       billboardData
     );
 
     const id = billboardRef.id;
 
-    await updateDoc(doc(db, "stores", storeId, "billboards", id), {
+    await updateDoc(documentReference("stores", storeId, "billboards", id), {
       ...billboardData,
       id,
       updatedAt: serverTimestamp(),

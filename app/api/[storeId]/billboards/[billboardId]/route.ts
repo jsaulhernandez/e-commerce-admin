@@ -1,9 +1,11 @@
-import { IBillboard } from "@/data/interfaces/billboard.interface";
-import { IStore } from "@/data/interfaces/store.interface";
-import { documentReference, getDataFirebase } from "@/lib/firebase-functions";
 import { auth } from "@clerk/nextjs/server";
 import { deleteDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
+// interfaces
+import { IBillboard } from "@/data/interfaces/billboard.interface";
+import { IStore } from "@/data/interfaces/store.interface";
+// utils
+import { documentReference, getDataFirebase } from "@/lib/firebase-functions";
 
 export const PATCH = async (
   req: Request,

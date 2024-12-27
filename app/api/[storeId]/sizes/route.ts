@@ -2,8 +2,8 @@ import { auth } from "@clerk/nextjs/server";
 import { addDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
 // interfaces
-import { IBillboard } from "@/data/interfaces/billboard.interface";
 import { IStore } from "@/data/interfaces/store.interface";
+import { ISize } from "@/data/interfaces/size.interface";
 // utils
 import {
   collectionReference,
@@ -12,7 +12,6 @@ import {
   getCollectionFirebase,
   getDataFirebase,
 } from "@/lib/firebase-functions";
-import { ISize } from "@/data/interfaces/size.interface";
 
 export const POST = async (
   req: Request,
@@ -80,7 +79,7 @@ export const GET = async (
     if (!storeId)
       throw new NextResponse("Store ID is required", { status: 400 });
 
-    const sizes = await getCollectionFirebase<IBillboard>(
+    const sizes = await getCollectionFirebase<ISize>(
       collectionReferenceByDoc(
         documentReference<IStore>("stores", storeId),
         "sizes"

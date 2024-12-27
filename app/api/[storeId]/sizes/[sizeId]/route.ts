@@ -3,9 +3,9 @@ import { deleteDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { NextResponse } from "next/server";
 // interfaces
 import { IStore } from "@/data/interfaces/store.interface";
+import { ISize } from "@/data/interfaces/size.interface";
 // utils
 import { documentReference, getDataFirebase } from "@/lib/firebase-functions";
-import { ISize } from "@/data/interfaces/size.interface";
 
 export const PATCH = async (
   req: Request,
