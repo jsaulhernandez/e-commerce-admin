@@ -7,13 +7,13 @@ import {
 } from "@/lib/firebase-functions";
 import BillBoardClient from "./_components/client";
 // types
-import { BillBoardsPageProps } from "@/data/types";
+import { GenericPageProps } from "@/data/types";
 import {
   IBillboard,
   IBillboardPlainText,
 } from "@/data/interfaces/billboard.interface";
 
-const BillboardsPage = async ({ params }: BillBoardsPageProps) => {
+const BillboardsPage = async ({ params }: GenericPageProps) => {
   const { storeId } = await params;
 
   const billboardsData = await getCollectionFirebase<IBillboard>(

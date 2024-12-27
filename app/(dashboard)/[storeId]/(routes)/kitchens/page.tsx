@@ -7,7 +7,7 @@ import {
   IKitchenPlainText,
 } from "@/data/interfaces/kitchen.interface";
 // types
-import { CategoriesPageProps } from "@/data/types";
+import { GenericPageProps } from "@/data/types";
 // utils
 import {
   collectionReferenceByDoc,
@@ -15,7 +15,7 @@ import {
   getCollectionFirebase,
 } from "@/lib/firebase-functions";
 
-const SizesPage = async ({ params }: CategoriesPageProps) => {
+const SizesPage = async ({ params }: GenericPageProps) => {
   const { storeId } = await params;
 
   const kitchensData = await getCollectionFirebase<IKitchen>(

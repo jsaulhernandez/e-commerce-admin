@@ -7,7 +7,7 @@ import {
   ICategoryPlainText,
 } from "@/data/interfaces/category.interface";
 // types
-import { CategoriesPageProps } from "@/data/types";
+import { GenericPageProps } from "@/data/types";
 // utils
 import {
   collectionReferenceByDoc,
@@ -15,7 +15,7 @@ import {
   getCollectionFirebase,
 } from "@/lib/firebase-functions";
 
-const CategoriesPage = async ({ params }: CategoriesPageProps) => {
+const CategoriesPage = async ({ params }: GenericPageProps) => {
   const { storeId } = await params;
 
   const categoriesData = await getCollectionFirebase<ICategory>(

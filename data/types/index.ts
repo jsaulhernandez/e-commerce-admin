@@ -46,7 +46,7 @@ export type CreateNewStoreItemProps = {
   onClick: () => void;
 };
 
-export type SettingsPageProps = {
+export type GenericPageProps = {
   params: {
     storeId: string;
   };
@@ -74,10 +74,6 @@ export type ApiAlertProps = {
   variant: "public" | "admin";
 };
 
-export type BillBoardsPageProps = {
-  params: { storeId: string };
-};
-
 export type BillBoardPageProps = {
   params: { storeId: string; billboardId: string };
 };
@@ -87,10 +83,6 @@ export type ImageUploadProps = {
   onRemove: (value: string) => void;
   value: string[];
   onSetIsUploading: (value: boolean) => void;
-};
-
-export type CategoriesPageProps = {
-  params: { storeId: string };
 };
 
 export type CategoryPageProps = {
@@ -130,5 +122,12 @@ export type KitchenPageProps = {
   params: {
     storeId: string;
     kitchenId: string;
+  };
+};
+
+export type CuisinePageProps = {
+  params: {
+    storeId: string;
+    cuisineId: string;
   };
 };

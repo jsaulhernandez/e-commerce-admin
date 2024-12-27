@@ -5,12 +5,12 @@ import SettingsForm from "./_components/settings-form";
 // interfaces
 import { IStore, IStorePlainText } from "@/data/interfaces/store.interface";
 // types
-import { SettingsPageProps } from "@/data/types";
+import { GenericPageProps } from "@/data/types";
 // utils
 import { documentReference, getDataFirebase } from "@/lib/firebase-functions";
 import { map } from "@/lib/utils";
 
-const SettingsPage = async ({ params }: SettingsPageProps) => {
+const SettingsPage = async ({ params }: GenericPageProps) => {
   const { storeId } = await params;
   const { userId } = await auth();
 
