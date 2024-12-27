@@ -28,7 +28,6 @@ const ImageUpload = ({
 
   const onUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
-    console.log(file);
     setIsLoading(true);
     onSetIsUploading(true);
 
