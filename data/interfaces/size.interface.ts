@@ -1,17 +1,17 @@
 import { Timestamp } from "firebase/firestore";
 
-export interface ISize {
+export interface ISizeBase {
   id: string;
   name: string;
   value: string;
+}
+
+export interface ISize extends ISizeBase {
   createdAt?: Timestamp;
   updatedAt?: Timestamp;
 }
 
-export interface ISizePlainText {
-  id: string;
-  name: string;
-  value: string;
+export interface ISizePlainText extends ISizeBase {
   createdAt?: string;
   updatedAt?: string;
 }
