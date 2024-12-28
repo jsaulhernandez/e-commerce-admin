@@ -35,6 +35,12 @@ export const extractPublicIdFromUrl = (url: string) => {
 
 export type Mapper<TSource, TTarget> = (source: TSource) => TTarget;
 
+/**
+ *
+ * @param source data of firebase
+ * @param mapping array of keys to include in the output data
+ * @returns source only with the key defined in the mapping array
+ */
 export function map<TSource, TTarget>(
   source: TSource,
   mapping: (keyof TSource)[]
@@ -51,3 +57,32 @@ export function map<TSource, TTarget>(
 
   return result as TTarget;
 }
+
+/**
+ *
+ * @param source data of firebase
+ * @param mapping array of keys that are not included in the output data
+ * @returns source without keys included in mapping
+ */
+export function mapNotInclude<TSource extends object, TTarget>(
+  source: TSource,
+  mapping: (keyof TSource)[]
+): TTarget {
+  const result: Partial<TTarget> = {};
+
+  Object.keys(source).forEach((key) => {
+    if (!mapping.includes(key as keyof TSource)) {
+      const sourceValue = source[key as keyof TSource];
+      if (sourceValue !== undefined) {
+        result[key as keyof TTarget] = sourceValue as TTarget[keyof TTarget];
+      }
+    }
+  });
+
+  return result as TTarget;
+}
+
+export const formatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
