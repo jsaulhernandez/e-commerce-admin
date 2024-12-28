@@ -70,19 +70,19 @@ const ProductForm = ({
   const toastMessage = initialData ? "Product Updated" : "Product Created";
   const categoriesOptions: IOption[] = categories.map((c) => ({
     label: c.name,
-    value: c.id,
+    value: c.name,
   }));
   const sizesOptions: IOption[] = sizes.map((s) => ({
     label: s.name,
-    value: s.id,
+    value: s.name,
   }));
   const kitchensOptions: IOption[] = kitchens.map((k) => ({
     label: k.name,
-    value: k.id,
+    value: k.name,
   }));
   const cuisinesOptions: IOption[] = cuisines.map((c) => ({
     label: c.name,
-    value: c.id,
+    value: c.name,
   }));
 
   const onSubmit = async (values: z.infer<typeof productFormSchema>) => {
