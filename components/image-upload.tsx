@@ -16,6 +16,7 @@ const ImageUpload = ({
   onRemove,
   value,
   onSetIsUploading,
+  isMultiple = false,
 }: ImageUploadProps) => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -27,29 +28,45 @@ const ImageUpload = ({
   if (!isMounted) return null;
 
   const onUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files![0];
+    let files: File[] = Array.from(e.target.files || []);
+    files = isMultiple ? files : [files[0]];
+
+    if (files.length === 0) return;
+
     setIsLoading(true);
     onSetIsUploading(true);
 
-    const formData = new FormData();
-    formData.append("file", file);
+    const uploadPromises = files.map(async (file) => {
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+        const response = await axios.post("/api/cloudinary", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
-    try {
-      const response = await axios.post("/api/cloudinary", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+        return response.data.url;
+      } catch (error) {
+        console.error("Image upload failed:", error);
+        toast.error(`Image upload failed: ${file.name}`);
+        return null;
+      }
+    });
 
-      onChange(response.data.url);
-      setIsLoading(false);
-      onSetIsUploading(false);
-      toast.success("Image upload");
-    } catch (error) {
-      console.error("Image upload failed:", error);
-      setIsLoading(false);
-      onSetIsUploading(false);
+    const uploadResults = await Promise.all(uploadPromises);
+
+    const successfulUrls = uploadResults.filter(
+      (url) => url !== null
+    ) as string[];
+
+    if (successfulUrls.length > 0) {
+      onChange(successfulUrls);
+      toast.success(`Images upload successful`);
     }
+
+    setIsLoading(false);
+    onSetIsUploading(false);
   };
 
   const onDelete = async (imageUrl: string) => {
@@ -115,6 +132,7 @@ const ImageUpload = ({
                   accept="image/*"
                   onChange={onUpload}
                   className="w-0 h-0"
+                  multiple={isMultiple}
                 />
               </label>
             </>

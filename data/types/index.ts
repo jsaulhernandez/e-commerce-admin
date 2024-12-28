@@ -6,6 +6,10 @@ import { PopoverTrigger } from "@/components/ui/popover";
 import { IStorePlainText } from "../interfaces/store.interface";
 import { IOption } from "../interfaces/option.interface";
 import { IBillboardPlainText } from "../interfaces/billboard.interface";
+import { ICategoryPlainText } from "../interfaces/category.interface";
+import { ISizePlainText } from "../interfaces/size.interface";
+import { IKitchenPlainText } from "../interfaces/kitchen.interface";
+import { ICuisinePlainText } from "../interfaces/cuisine.interface";
 
 export type GenericLayoutProps = {
   children: React.ReactNode;
@@ -79,10 +83,11 @@ export type BillBoardPageProps = {
 };
 
 export type ImageUploadProps = {
-  onChange: (value: string) => void;
+  onChange: (value: string[]) => void;
   onRemove: (value: string) => void;
   value: string[];
   onSetIsUploading: (value: boolean) => void;
+  isMultiple?: boolean;
 };
 
 export type CategoryPageProps = {
@@ -93,18 +98,26 @@ export type CategoryFormProps<T extends object> = GenericFormProps<T> & {
   billboards: IBillboardPlainText[];
 };
 
-export type CustomFormFieldProps<T extends FieldValues> = {
+export type CustomFormFieldBaseProps<T extends FieldValues> = {
   control: Control<T>;
   name: Path<T>;
   label: string;
-  placeholder?: string;
-  isLoading: boolean;
+  extra?: string;
 };
+
+export type CustomFormFieldProps<T extends FieldValues> =
+  CustomFormFieldBaseProps<T> & {
+    placeholder?: string;
+    isLoading: boolean;
+  };
 
 export type CustomFormSelectProps<T extends FieldValues> =
   CustomFormFieldProps<T> & {
     data: IOption[];
   };
+
+export type CustomFormCheckboxProps<T extends FieldValues> =
+  CustomFormFieldBaseProps<T>;
 
 export type ApiListProps = {
   entityName: string;
@@ -130,4 +143,18 @@ export type CuisinePageProps = {
     storeId: string;
     cuisineId: string;
   };
+};
+
+export type ProductPageProps = {
+  params: {
+    storeId: string;
+    productId: string;
+  };
+};
+
+export type ProductFormProps<T extends object> = GenericFormProps<T> & {
+  categories: ICategoryPlainText[];
+  sizes: ISizePlainText[];
+  kitchens: IKitchenPlainText[];
+  cuisines: ICuisinePlainText[];
 };
