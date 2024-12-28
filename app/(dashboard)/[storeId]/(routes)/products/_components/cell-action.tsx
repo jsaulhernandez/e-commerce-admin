@@ -45,6 +45,16 @@ const CellAction = ({ data }: { data: IProductPlainText }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
+
+      const { images } = data;
+
+      const deletePromises = images.map(async (image) => {
+        await axios.delete("/api/cloudinary", {
+          data: { imageUrl: image.url },
+        });
+      });
+
+      await Promise.all(deletePromises);
       await axios.delete(`/api/${storeId}/products/${data.id}`);
 
       toast.success("Product Removed");
