@@ -108,6 +108,16 @@ const ProductForm = ({
   const onDelete = async () => {
     setIsLoading(true);
     try {
+      const { images } = form.getValues();
+
+      const deletePromises = images.map(async (image) => {
+        await axios.delete("/api/cloudinary", {
+          data: { imageUrl: image.url },
+        });
+      });
+
+      await Promise.all(deletePromises);
+
       await axios.delete(`/api/${storeId}/products/${productId}`);
 
       toast.success("Product Removed");
