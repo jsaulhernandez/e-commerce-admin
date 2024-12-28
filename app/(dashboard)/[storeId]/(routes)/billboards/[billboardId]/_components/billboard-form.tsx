@@ -138,7 +138,7 @@ const BillboardForm = ({
                 <FormControl>
                   <ImageUpload
                     value={field.value ? [field.value] : []}
-                    onChange={(url) => field.onChange(url)}
+                    onChange={(url) => field.onChange(url[0])}
                     onRemove={() => field.onChange("")}
                     onSetIsUploading={setIsUploading}
                   />
