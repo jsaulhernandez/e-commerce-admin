@@ -4,4 +4,5 @@ export type pathFirebase =
   | "categories"
   | "sizes"
   | "kitchens"
-  | "cuisines";
+  | "cuisines"
+  | "products";
