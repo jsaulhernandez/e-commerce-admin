@@ -5,8 +5,8 @@ interface IProductBase {
   name: string;
   price: number;
   images: { url: string }[];
-  isFeatured: boolean;
-  isArchived: boolean;
+  isFeatured?: boolean;
+  isArchived?: boolean;
   category: string;
   size: string;
   kitchen: string;

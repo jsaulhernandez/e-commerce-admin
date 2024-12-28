@@ -6,6 +6,7 @@ import { ICategoryPlainText } from "@/data/interfaces/category.interface";
 import { ISizePlainText } from "@/data/interfaces/size.interface";
 import { IKitchenPlainText } from "@/data/interfaces/kitchen.interface";
 import { ICuisinePlainText } from "@/data/interfaces/cuisine.interface";
+import { IProductPlainText } from "../interfaces/product.interface";
 
 export const storeFormSchema: ZodSchema<
   Omit<IStorePlainText, "id" | "userId" | "createdAt" | "updatedAt">
@@ -48,4 +49,18 @@ export const cuisineFormSchema: ZodSchema<
 > = z.object({
   name: z.string().min(1),
   value: z.string().min(1),
+});
+
+export const productFormSchema: ZodSchema<
+  Omit<IProductPlainText, "id" | "createdAt" | "updatedAt" | "qty">
+> = z.object({
+  name: z.string().min(1),
+  price: z.coerce.number().min(1),
+  category: z.string().min(1),
+  size: z.string().min(1),
+  kitchen: z.string().min(1),
+  cuisine: z.string().min(1),
+  images: z.object({ url: z.string() }).array(),
+  isFeatured: z.boolean().default(false).optional(),
+  isArchived: z.boolean().default(false).optional(),
 });
