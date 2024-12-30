@@ -36,10 +36,18 @@ export const columnsProducts: ColumnDef<IProductPlainText>[] = [
   {
     accessorKey: "isFeatured",
     header: "Featured",
+    cell: ({ getValue }) => {
+      const isFeatured = getValue<boolean>();
+      return isFeatured ? "T" : "F";
+    },
   },
   {
     accessorKey: "isArchived",
     header: "Archived",
+    cell: ({ getValue }) => {
+      const isArchived = getValue<boolean>();
+      return isArchived ? "T" : "F";
+    },
   },
   {
     accessorKey: "category",
@@ -48,14 +56,26 @@ export const columnsProducts: ColumnDef<IProductPlainText>[] = [
   {
     accessorKey: "size",
     header: "Size",
+    cell: ({ getValue }) => {
+      const size = getValue<string>();
+      return size ?? "N/A";
+    },
   },
   {
     accessorKey: "kitchen",
     header: "Kitchen",
+    cell: ({ getValue }) => {
+      const kitchen = getValue<string>();
+      return kitchen ?? "N/A";
+    },
   },
   {
     accessorKey: "cuisine",
     header: "Cuisine",
+    cell: ({ getValue }) => {
+      const cuisine = getValue<string>();
+      return cuisine ?? "N/A";
+    },
   },
   {
     accessorKey: "createdAt",
