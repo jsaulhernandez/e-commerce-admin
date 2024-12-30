@@ -41,12 +41,6 @@ export const PATCH = async (
       throw new NextResponse("Product images are missing!", { status: 400 });
     if (!category)
       throw new NextResponse("Product category is missing!", { status: 400 });
-    if (!size)
-      throw new NextResponse("Product size is missing!", { status: 400 });
-    if (!kitchen)
-      throw new NextResponse("Product kitchen is missing!", { status: 400 });
-    if (!cuisine)
-      throw new NextResponse("Product cuisine is missing!", { status: 400 });
 
     const store = await getDataFirebase<IStore>(
       documentReference("stores", storeId)
