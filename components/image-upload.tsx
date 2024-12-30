@@ -94,7 +94,7 @@ const ImageUpload = ({
               >
                 <Image
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   alt="Billboard Image"
                   src={url}
                 />
