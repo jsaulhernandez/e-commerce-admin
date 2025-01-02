@@ -1,14 +1,22 @@
 import { auth } from "@clerk/nextjs/server";
-import { addDoc, serverTimestamp, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  DocumentData,
+  QuerySnapshot,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { NextResponse } from "next/server";
 // interfaces
 import { IStore } from "@/data/interfaces/store.interface";
 import { IProduct } from "@/data/interfaces/product.interface";
+import { ICondition } from "../../../../data/interfaces/condition.interface";
 // utils
 import {
   collectionReference,
   collectionReferenceByDoc,
   documentReference,
+  getCollectionByQueryFirebase,
   getCollectionFirebase,
   getDataFirebase,
 } from "@/lib/firebase-functions";
@@ -102,14 +110,74 @@ export const GET = async (
     if (!storeId)
       throw new NextResponse("Store ID is required", { status: 400 });
 
-    const products = await getCollectionFirebase<IProduct>(
-      collectionReferenceByDoc(
-        documentReference<IStore>("stores", storeId),
-        "products"
-      )
+    const { searchParams } = new URL(req.url);
+
+    const productsRef = collectionReferenceByDoc<IProduct>(
+      documentReference<IStore>("stores", storeId),
+      "products"
     );
 
-    const data = products.docs.map((doc) => doc.data());
+    let productQuery: QuerySnapshot<IProduct, DocumentData>;
+    const queryConstraints: ICondition<IProduct>[] = [];
+
+    if (searchParams.has("size")) {
+      queryConstraints.push({
+        key: "size",
+        opStr: "==",
+        value: searchParams.get("size"),
+      });
+    }
+
+    if (searchParams.has("category")) {
+      queryConstraints.push({
+        key: "category",
+        opStr: "==",
+        value: searchParams.get("category"),
+      });
+    }
+
+    if (searchParams.has("kitchen")) {
+      queryConstraints.push({
+        key: "kitchen",
+        opStr: "==",
+        value: searchParams.get("kitchen"),
+      });
+    }
+
+    if (searchParams.has("cuisine")) {
+      queryConstraints.push({
+        key: "cuisine",
+        opStr: "==",
+        value: searchParams.get("cuisine"),
+      });
+    }
+
+    if (searchParams.has("isFeatured")) {
+      queryConstraints.push({
+        key: "isFeatured",
+        opStr: "==",
+        value: searchParams.get("isFeatured") === "true",
+      });
+    }
+
+    if (searchParams.has("isArchived")) {
+      queryConstraints.push({
+        key: "isArchived",
+        opStr: "==",
+        value: searchParams.get("isArchived") === "true",
+      });
+    }
+
+    if (queryConstraints.length > 0) {
+      productQuery = await getCollectionByQueryFirebase<IProduct>(
+        productsRef,
+        ...queryConstraints
+      );
+    } else {
+      productQuery = await getCollectionFirebase<IProduct>(productsRef);
+    }
+
+    const data = productQuery.docs.map((doc) => doc.data());
 
     return NextResponse.json(data);
   } catch (error) {
