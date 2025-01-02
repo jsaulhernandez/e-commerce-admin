@@ -70,6 +70,8 @@ const ImageUpload = ({
   };
 
   const onDelete = async (imageUrl: string) => {
+    setIsLoading(true);
+    onSetIsUploading(true);
     try {
       await axios.delete("/api/cloudinary", {
         data: { imageUrl },
@@ -79,6 +81,9 @@ const ImageUpload = ({
     } catch (error) {
       console.error("Image deleting failed:", error);
       toast.success("Image deletion failed");
+    } finally {
+      setIsLoading(false);
+      onSetIsUploading(false);
     }
   };
 
@@ -89,7 +94,9 @@ const ImageUpload = ({
           <div className="mb-4 flex items-center gap-4">
             {value.map((url) => (
               <div
-                className="relative w-52 h-52 rounded-md overflow-hidden"
+                className={`relative w-52 h-52 rounded-md overflow-hidden ${
+                  isLoading ? "opacity-70 pointer-events-none" : ""
+                }`}
                 key={url}
               >
                 <Image
@@ -118,7 +125,8 @@ const ImageUpload = ({
             <>
               <PuffLoader size={30} color="#555" />
               {/* <p>{`${progress.toFixed(2)}%`}</p> */}
-              <p>Uploading image...</p>
+              {!isMultiple && <p>Uploading image...</p>}
+              {isMultiple && <p>Uploading images...</p>}
             </>
           ) : (
             <>

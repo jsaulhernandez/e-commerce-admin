@@ -170,7 +170,7 @@ const ProductForm = ({
             name="images"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Billboard Image</FormLabel>
+                <FormLabel>Product Images</FormLabel>
                 <FormControl>
                   <ImageUpload
                     value={field.value.map((i) => i.url)}
