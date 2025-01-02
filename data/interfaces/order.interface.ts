@@ -18,6 +18,9 @@ export interface IOrder extends IOrderBase {
 
 export interface IOrderPlainText extends IOrderBase {
   orderItems: IProductPlainText[];
+  totalPrice: number;
+  images: string[];
+  products: string;
   createdAt?: string;
   updatedAt?: string;
 }
