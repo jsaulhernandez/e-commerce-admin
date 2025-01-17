@@ -1,6 +1,6 @@
 import { Timestamp } from "firebase/firestore";
 
-interface IProductBase {
+export interface IProductBase {
   id: string;
   name: string;
   price: number;
