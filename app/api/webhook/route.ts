@@ -47,9 +47,8 @@ export const POST = async (req: Request) => {
 
       await updateDoc(ref, {
         isPaid: true,
-        address,
-        addressString,
-        Phone: session.customer_details?.phone,
+        address: addressString,
+        phone: session.customer_details?.phone,
         updatedAt: serverTimestamp(),
       });
     }
