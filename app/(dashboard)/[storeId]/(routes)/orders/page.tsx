@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { Timestamp } from "firebase/firestore";
 // components
 import OrderClient from "./_components/client";
 // interfaces
@@ -22,15 +23,21 @@ const OrdersPage = async ({ params }: GenericPageProps) => {
 
   const dataFormatted: IOrderPlainText[] = ordersData.docs.map((o) => {
     const data = o.data();
+
     const orderItems: IProductPlainText[] = data.orderItems.map((p) => {
+      const createdAt = new Timestamp(
+        p.updatedAt?.seconds ?? 0,
+        p.updatedAt?.nanoseconds ?? 0
+      );
+      const updatedAt = new Timestamp(
+        p.updatedAt?.seconds ?? 0,
+        p.updatedAt?.nanoseconds ?? 0
+      );
+
       return {
         ...p,
-        createdAt: p.createdAt
-          ? format(p.createdAt.toDate(), "MMMM do, yyyy")
-          : "",
-        updatedAt: p.updatedAt
-          ? format(p.updatedAt.toDate(), "MMMM do, yyyy")
-          : "",
+        createdAt: createdAt ? format(createdAt.toDate(), "MMMM do, yyyy") : "",
+        updatedAt: updatedAt ? format(updatedAt.toDate(), "MMMM do, yyyy") : "",
       };
     });
 
