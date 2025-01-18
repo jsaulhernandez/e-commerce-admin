@@ -1,11 +1,6 @@
-
-import {
-    addDoc,
-    serverTimestamp,
-    updateDoc,
-  } from "firebase/firestore";
-  import { NextResponse } from "next/server";
-  // interfaces
+import { addDoc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { NextResponse } from "next/server";
+// interfaces
 import { IProductBase } from "@/data/interfaces/product.interface";
 // utils
 import {
