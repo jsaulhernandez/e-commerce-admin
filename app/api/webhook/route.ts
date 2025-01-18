@@ -7,7 +7,7 @@ import { documentReference } from "@/lib/firebase-functions";
 import { stripe } from "@/lib/stripe";
 
 export const POST = async (req: Request) => {
-  const body = await req.json();
+  const body = await req.text();
   const signature = (await headers()).get("Stripe-Signature") as string;
 
   let event: Stripe.Event;
