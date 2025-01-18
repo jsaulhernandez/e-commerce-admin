@@ -28,7 +28,17 @@ const CellAction = ({ data }: { data: IOrderPlainText }) => {
     {
       label: "Delivering",
       icon: <Edit className="h-4 w-4 mr-2" />,
-      onClick: () => onUpdate(data),
+      onClick: () => onUpdate(data.id, "Delivering"),
+    },
+    {
+      label: "Delivered",
+      icon: <Edit className="h-4 w-4 mr-2" />,
+      onClick: () => onUpdate(data.id, "Delivered"),
+    },
+    {
+      label: "Canceled",
+      icon: <Edit className="h-4 w-4 mr-2" />,
+      onClick: () => onUpdate(data.id, "Canceled"),
     },
     {
       label: "Delete",
@@ -59,12 +69,12 @@ const CellAction = ({ data }: { data: IOrderPlainText }) => {
     }
   };
 
-  const onUpdate = async (data: IOrderPlainText) => {
+  const onUpdate = async (id: string, status: string) => {
     try {
       setLoading(true);
       await axios.patch(`/api/${storeId}/orders/${data.id}`, {
-        id: data.id,
-        order_status: "Delivering",
+        id,
+        order_status: status,
       } as IOrderPlainText);
 
       toast.success("Order Updated");
