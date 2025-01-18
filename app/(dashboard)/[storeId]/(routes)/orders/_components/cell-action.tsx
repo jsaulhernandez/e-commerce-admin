@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { Copy, Trash } from "lucide-react";
+import { Copy, Edit, Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -26,6 +26,11 @@ const CellAction = ({ data }: { data: IOrderPlainText }) => {
       onClick: () => onCopy(data.id),
     },
     {
+      label: "Delivering",
+      icon: <Edit className="h-4 w-4 mr-2" />,
+      onClick: () => onUpdate(data),
+    },
+    {
       label: "Delete",
       icon: <Trash className="h-4 w-4 mr-2" />,
       onClick: () => setOpen(true),
@@ -43,6 +48,26 @@ const CellAction = ({ data }: { data: IOrderPlainText }) => {
       await axios.delete(`/api/${storeId}/orders/${data.id}`);
 
       toast.success("Order Removed");
+      router.refresh();
+      router.push(`/${storeId}/orders`);
+    } catch (error) {
+      console.error("[Error]", error);
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+      setOpen(false);
+    }
+  };
+
+  const onUpdate = async (data: IOrderPlainText) => {
+    try {
+      setLoading(true);
+      await axios.patch(`/api/${storeId}/orders/${data.id}`, {
+        id: data.id,
+        order_status: "Delivering",
+      } as IOrderPlainText);
+
+      toast.success("Order Updated");
       router.refresh();
       router.push(`/${storeId}/orders`);
     } catch (error) {
