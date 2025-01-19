@@ -165,3 +165,7 @@ export type CardItemProps = {
   className?: string;
   icon?: React.ReactNode;
 };
+
+export type OverviewProps = {
+  data: any[];
+};
