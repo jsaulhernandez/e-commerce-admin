@@ -1,4 +1,6 @@
+// interfaces
 import { IProduct } from "@/data/interfaces/product.interface";
+// utils
 import {
   collectionReferenceByDoc,
   documentReference,
