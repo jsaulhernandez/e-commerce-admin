@@ -10,6 +10,7 @@ import { ICategoryPlainText } from "../interfaces/category.interface";
 import { ISizePlainText } from "../interfaces/size.interface";
 import { IKitchenPlainText } from "../interfaces/kitchen.interface";
 import { ICuisinePlainText } from "../interfaces/cuisine.interface";
+import { IGraphData } from "../interfaces/graph-data.interface";
 
 export type GenericLayoutProps = {
   children: React.ReactNode;
@@ -167,5 +168,12 @@ export type CardItemProps = {
 };
 
 export type OverviewProps = {
-  data: any[];
+  data: IGraphData[];
+};
+
+export type CardChartProps = {
+  title: string;
+  data: IGraphData[];
+  className?: string;
+  icon?: React.ReactNode;
 };
