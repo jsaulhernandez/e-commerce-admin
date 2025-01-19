@@ -1,3 +1,5 @@
+"use client";
+
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 // types
 import { OverviewProps } from "@/data/types";
