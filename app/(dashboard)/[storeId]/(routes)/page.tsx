@@ -38,16 +38,19 @@ const DashboardOverview = async ({ params }: DashboardOverviewProps) => {
             title="Total Revenue"
             value={totalRevenueFormatted}
             icon={<DollarSign className="w-4 h-4 text-muted-foreground" />}
+            className="col-span-2"
           />
           <CardItem
             title="Sales"
             value={`+ ${totalSale}`}
             icon={<DollarSign className="w-4 h-4 text-muted-foreground" />}
+            className="col-span-1"
           />
           <CardItem
             title="Products"
             value={`+ ${totalProducts}`}
             icon={<DollarSign className="w-4 h-4 text-muted-foreground" />}
+            className="col-span-1"
           />
         </div>
       </div>

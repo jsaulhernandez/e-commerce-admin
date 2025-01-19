@@ -162,5 +162,6 @@ export type ProductFormProps<T extends object> = GenericFormProps<T> & {
 export type CardItemProps = {
   title: string;
   value: string;
+  className?: string;
   icon?: React.ReactNode;
 };
