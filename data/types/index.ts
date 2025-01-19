@@ -158,3 +158,9 @@ export type ProductFormProps<T extends object> = GenericFormProps<T> & {
   kitchens: IKitchenPlainText[];
   cuisines: ICuisinePlainText[];
 };
+
+export type CardItemProps = {
+  title: string;
+  value: string;
+  icon?: React.ReactNode;
+};
